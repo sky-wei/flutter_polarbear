@@ -14,27 +14,26 @@
  * limitations under the License.
  */
 
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_polarbear/route.dart';
-import 'package:flutter_polarbear/theme/theme.dart';
+import 'package:flutter_polarbear/theme/color.dart';
 
-void main() {
-  runApp(const MyApp());
-}
+class SplashPage extends StatelessWidget {
 
-class MyApp extends StatelessWidget {
-
-  const MyApp({Key? key}) : super(key: key);
+  const SplashPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'PolarBear',
-      theme: XTheme.lightTheme(),
-      debugShowCheckedModeBanner: false,
-      initialRoute: XRoute.register,
-      onGenerateRoute: (settings)=> XRoute.generateRoute(settings),
-      // home: const SplashPage(),
+    return const Scaffold(
+      body: Center(
+          child: Text(
+            "Loading...",
+            style: TextStyle(
+              fontSize: 30,
+            ),
+          )
+      ),
     );
   }
 }
+

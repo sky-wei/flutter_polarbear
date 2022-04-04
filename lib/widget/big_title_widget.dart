@@ -14,27 +14,24 @@
  * limitations under the License.
  */
 
-import 'package:flutter/material.dart';
-import 'package:flutter_polarbear/route.dart';
-import 'package:flutter_polarbear/theme/theme.dart';
+import 'package:flutter/cupertino.dart';
 
-void main() {
-  runApp(const MyApp());
-}
+class BigTitleWidget extends StatelessWidget {
 
-class MyApp extends StatelessWidget {
+  final String title;
 
-  const MyApp({Key? key}) : super(key: key);
+  const BigTitleWidget({
+    Key? key,
+    required this.title
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'PolarBear',
-      theme: XTheme.lightTheme(),
-      debugShowCheckedModeBanner: false,
-      initialRoute: XRoute.register,
-      onGenerateRoute: (settings)=> XRoute.generateRoute(settings),
-      // home: const SplashPage(),
+    return Text(
+      title,
+      style: const TextStyle(
+          fontSize: 46
+      ),
     );
   }
 }

@@ -15,26 +15,23 @@
  */
 
 import 'package:flutter/material.dart';
-import 'package:flutter_polarbear/route.dart';
-import 'package:flutter_polarbear/theme/theme.dart';
 
-void main() {
-  runApp(const MyApp());
+import 'color.dart';
+
+class XTheme {
+
+  XTheme._();
+
+  static ThemeData lightTheme() => ThemeData(
+    primarySwatch: XColor.red,
+    backgroundColor: XColor.backgroundColor,
+    fontFamily: 'hwxw'
+  );
+
+  static ThemeData darkTheme() => ThemeData(
+    primarySwatch: XColor.red,
+    backgroundColor: XColor.backgroundColor,
+    fontFamily: 'hwxw',
+  );
 }
 
-class MyApp extends StatelessWidget {
-
-  const MyApp({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'PolarBear',
-      theme: XTheme.lightTheme(),
-      debugShowCheckedModeBanner: false,
-      initialRoute: XRoute.register,
-      onGenerateRoute: (settings)=> XRoute.generateRoute(settings),
-      // home: const SplashPage(),
-    );
-  }
-}

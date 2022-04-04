@@ -1,0 +1,72 @@
+/*
+ * Copyright (c) 2022 The sky Authors.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+import 'package:flutter/material.dart';
+import 'package:flutter/painting.dart';
+import 'package:flutter_polarbear/theme/color.dart';
+import 'package:flutter_svg/svg.dart';
+
+class BigInputWidget extends StatelessWidget {
+
+  final TextEditingController? controller;
+  final String iconName;
+  final String? labelText;
+  final bool autofocus;
+  final bool obscureText;
+  final TextInputAction? textInputAction;
+  final FormFieldValidator<String>? validator;
+
+  const BigInputWidget({
+    Key? key,
+    this.controller,
+    required this.iconName,
+    this.labelText,
+    this.autofocus = false,
+    this.obscureText = false,
+    this.textInputAction,
+    this.validator
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+      width: 280,
+      child: TextFormField(
+        controller: controller,
+        autofocus: autofocus,
+        obscureText: obscureText,
+        decoration: InputDecoration(
+          prefixIcon: Padding(
+            padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
+            child: SvgPicture.asset(
+              'assets/svg/$iconName',
+              color: XColor.black,
+              width: 26,
+              height: 26,
+            ),
+          ),
+          labelText: labelText,
+          border: const OutlineInputBorder(
+            borderRadius: BorderRadius.all(Radius.circular(6))
+          ),
+        ),
+        textInputAction: textInputAction,
+        validator: validator,
+      ),
+    );
+  }
+}
+
