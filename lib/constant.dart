@@ -16,6 +16,8 @@
 
 class XConstant {
 
-  
+  static const String versionName = "3.0.0";
+
+
 }
 

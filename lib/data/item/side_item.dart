@@ -14,27 +14,14 @@
  * limitations under the License.
  */
 
-import 'package:flutter/material.dart';
-import 'package:flutter_polarbear/route.dart';
-import 'package:flutter_polarbear/theme/theme.dart';
+class SideItem {
 
-void main() {
-  runApp(const MyApp());
+  final String icon;
+  final String name;
+
+  SideItem({
+    required this.icon,
+    required this.name
+  });
 }
 
-class MyApp extends StatelessWidget {
-
-  const MyApp({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'PolarBear',
-      theme: XTheme.lightTheme(),
-      debugShowCheckedModeBanner: false,
-      initialRoute: XRoute.home,
-      onGenerateRoute: (settings)=> XRoute.generateRoute(settings),
-      // home: const SplashPage(),
-    );
-  }
-}

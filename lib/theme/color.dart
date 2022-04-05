@@ -34,7 +34,7 @@ class XColor {
 
   static const Color gray2Color = Color(0xFFBFBFBF);
 
-  static const Color themeColor = Color(0xFF2B2B2B);
+  static const Color themeColor = Color(_redPrimaryValue);
 
 
   static const MaterialColor red = MaterialColor(

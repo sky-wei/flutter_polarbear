@@ -64,7 +64,7 @@ class XRoute {
       case home:
         route = MaterialPageRoute(
             builder: (context) {
-              return HomePage();
+              return const HomePage();
             }
         );
         break;

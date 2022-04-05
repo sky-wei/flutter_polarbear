@@ -32,6 +32,7 @@ class _RegisterPageState extends State<RegisterPage> {
 
   final TextEditingController _nameController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
+  final TextEditingController _confirmPasswordController = TextEditingController();
 
   final GlobalKey _formKey = GlobalKey<FormState>();
 
@@ -68,7 +69,7 @@ class _RegisterPageState extends State<RegisterPage> {
                 ),
                 const SizedBox(height: 20),
                 BigInputWidget(
-                  controller: _passwordController,
+                  controller: _confirmPasswordController,
                   iconName: 'ic_password.svg',
                   labelText: 'ConfirmPassword',
                   obscureText: true,
