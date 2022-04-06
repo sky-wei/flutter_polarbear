@@ -14,38 +14,50 @@
  * limitations under the License.
  */
 
-import 'package:flutter/material.dart';
-import 'package:flutter_polarbear/widget/big_title_widget.dart';
+import 'package:flutter/cupertino.dart';
 
-import '../../widget/big_button_widget.dart';
-import '../../widget/big_input_widget.dart';
+import '../../../widget/big_button_widget.dart';
+import '../../../widget/big_input_widget.dart';
+import '../../../widget/sub_title_widget.dart';
 
-class LoginPage extends StatefulWidget {
+class NewAccountPage extends StatefulWidget {
 
-  const LoginPage({Key? key}) : super(key: key);
+  const NewAccountPage({Key? key}) : super(key: key);
 
   @override
-  State<LoginPage> createState()=> _LoginPageState();
+  State<StatefulWidget> createState() => _NewAccountPageState();
 }
 
-class _LoginPageState extends State<LoginPage> {
+class _NewAccountPageState extends State<NewAccountPage> {
 
   final TextEditingController _nameController = TextEditingController();
+  final TextEditingController _urlController = TextEditingController();
+  final TextEditingController _descController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
 
   final GlobalKey _formKey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Center(
+    return Column(
+      children: [
+        const SizedBox(height: 45),
+        const SubTitleWidget(title: 'Account'),
+        Expanded(
+          child: _buildAccount(),
+        )
+      ],
+    );
+  }
+
+  Widget _buildAccount() {
+    return Center(
         child: Form(
           key: _formKey,
           autovalidateMode: AutovalidateMode.onUserInteraction,
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
-              const BigTitleWidget(title: "Welcome"),
               const SizedBox(height: 60),
               BigInputWidget(
                 controller: _nameController,
@@ -66,6 +78,26 @@ class _LoginPageState extends State<LoginPage> {
                   return v!.trim().isEmpty ? "密码不能为空!" : null;
                 },
               ),
+              const SizedBox(height: 20),
+              BigInputWidget(
+                controller: _urlController,
+                iconName: 'ic_url.svg',
+                labelText: 'Url',
+                validator: (v) {
+                  return v!.trim().isEmpty ? "URL不能为空!" : null;
+                },
+              ),
+              const SizedBox(height: 20),
+              BigInputWidget(
+                controller: _descController,
+                iconName: 'ic_desc.svg',
+                labelText: 'Description',
+                validator: (v) {
+                  return v!.trim().isEmpty ? "描述不能为空!" : null;
+                },
+                keyboardType: TextInputType.multiline,
+                maxLines: 2,
+              ),
               const SizedBox(height: 40),
               BigButtonWidget(
                 onPressed: () {
@@ -73,12 +105,11 @@ class _LoginPageState extends State<LoginPage> {
 
                   }
                 },
-                text: 'Login',
+                text: 'Create',
               )
             ],
           ),
         )
-      ),
     );
   }
 }

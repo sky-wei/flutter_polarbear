@@ -17,10 +17,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_polarbear/data/item/side_item.dart';
 import 'package:flutter_polarbear/data/item/side_title.dart';
+import 'package:flutter_polarbear/page/home/account/list_page.dart';
+import 'package:flutter_polarbear/page/home/profile/profile_page.dart';
 import 'package:flutter_polarbear/page/home/settings/setting_page.dart';
 import 'package:flutter_polarbear/page/home/side_scaffold.dart';
 
-import 'create/new_account_page.dart';
+import 'create/create_page.dart';
 
 class HomePage extends StatefulWidget {
 
@@ -71,10 +73,26 @@ class _HomePageState extends State<HomePage> {
 
   Widget _pageAtIndex(int index) {
     switch(index) {
+      case 0:
+        return const AccountListPage();
+      case 1:
+        return Navigator(
+          onGenerateRoute: (settings) {
+            return MaterialPageRoute(builder: (context) {
+              return const ProfilePage();
+            });
+          },
+        );
       case 2:
         return const NewAccountPage();
       case 3:
-        return const SettingPage();
+        return Navigator(
+          onGenerateRoute: (settings) {
+            return MaterialPageRoute(builder: (context) {
+              return const SettingPage();
+            });
+          },
+        );
       default:
         return Center(
           child: Text("Index: $index"),

@@ -28,6 +28,8 @@ class BigInputWidget extends StatelessWidget {
   final bool obscureText;
   final TextInputAction? textInputAction;
   final FormFieldValidator<String>? validator;
+  final TextInputType keyboardType;
+  final int maxLines;
 
   const BigInputWidget({
     Key? key,
@@ -37,13 +39,15 @@ class BigInputWidget extends StatelessWidget {
     this.autofocus = false,
     this.obscureText = false,
     this.textInputAction,
-    this.validator
+    this.validator,
+    this.keyboardType = TextInputType.text,
+    this.maxLines = 1,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      width: 280,
+      width: 300,
       child: TextFormField(
         controller: controller,
         autofocus: autofocus,
@@ -54,16 +58,19 @@ class BigInputWidget extends StatelessWidget {
             child: SvgPicture.asset(
               'assets/svg/$iconName',
               color: XColor.black,
-              width: 26,
-              height: 26,
+              width: 28,
+              height: 28,
             ),
           ),
           labelText: labelText,
           border: const OutlineInputBorder(
             borderRadius: BorderRadius.all(Radius.circular(6))
           ),
+          contentPadding: const EdgeInsets.symmetric(vertical: 23)
         ),
         textInputAction: textInputAction,
+        keyboardType: keyboardType,
+        maxLines: maxLines,
         validator: validator,
       ),
     );

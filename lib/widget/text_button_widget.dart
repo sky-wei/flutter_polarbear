@@ -15,40 +15,45 @@
  */
 
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 
-class BigButtonWidget extends StatelessWidget {
+import '../theme/color.dart';
+
+class TextButtonWidget extends StatelessWidget {
 
   final VoidCallback? onPressed;
   final String text;
+  final String icon;
 
-  const BigButtonWidget({
+  const TextButtonWidget({
     Key? key,
-    required this.onPressed,
-    required this.text
+    this.onPressed,
+    required this.text,
+    required this.icon
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return ElevatedButton(
+    return TextButton.icon(
       onPressed: onPressed,
       style: ButtonStyle(
-        minimumSize: MaterialStateProperty.all(
-            const Size(310, 63)
+        padding: MaterialStateProperty.all(
+          const EdgeInsets.fromLTRB(10, 15, 10, 15)
         ),
-        textStyle: MaterialStateProperty.all(
-            const TextStyle(
-                fontFamily: 'hwxw',
-                fontSize: 18
-            )
-        ),
-        elevation: MaterialStateProperty.all(0),
-        shape: MaterialStateProperty.all(
-          const RoundedRectangleBorder(
-            borderRadius: BorderRadius.all(Radius.circular(6))
-          )
-        )
       ),
-      child: Text(text),
+      icon: SvgPicture.asset(
+        'assets/svg/$icon',
+        color: XColor.black,
+        width: 24,
+        height: 24,
+      ),
+      label: Text(
+        text,
+        style: const TextStyle(
+          fontSize: 15,
+          color: XColor.black
+        ),
+      )
     );
   }
 }

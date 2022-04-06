@@ -169,8 +169,8 @@ class _SideScaffoldState extends State<SideScaffold> {
                 SvgPicture.asset(
                   'assets/svg/$iconName',
                   color: contentColor,
-                  width: 26,
-                  height: 26,
+                  width: 28,
+                  height: 28,
                 ),
                 const SizedBox(width: 10),
                 Text(

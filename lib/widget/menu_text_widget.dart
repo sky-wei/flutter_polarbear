@@ -14,44 +14,63 @@
  * limitations under the License.
  */
 
-import 'dart:ui';
 
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+
+import '../theme/color.dart';
 
 class MenuTextWidget extends StatelessWidget {
 
   final VoidCallback? onPressed;
   final String text;
+  final String desc;
 
   const MenuTextWidget({
     Key? key,
-    required this.onPressed,
-    required this.text
+    this.onPressed,
+    required this.text,
+    required this.desc
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return ElevatedButton(
-      onPressed: onPressed,
-      style: ButtonStyle(
-          minimumSize: MaterialStateProperty.all(
-              const Size(290, 60)
+    return Material(
+      child: Ink(
+        decoration: BoxDecoration(
+          color: XColor.white,
+          borderRadius: BorderRadius.circular(6),
+        ),
+        child: InkWell(
+          borderRadius: BorderRadius.circular(6),
+          onTap: onPressed,
+          child: Padding(
+            padding: const EdgeInsets.only(
+                left: 28, top: 24, right: 28, bottom: 24),
+            child: Stack(
+              alignment: Alignment.centerLeft,
+              children: [
+                Text(
+                  text,
+                  style: const TextStyle(
+                      fontSize: 16,
+                      color: XColor.black
+                  ),
+                ),
+                Align(
+                  alignment: Alignment.centerRight,
+                  child: SelectableText(
+                    desc,
+                    style: const TextStyle(
+                        fontSize: 16,
+                        color: XColor.grayColor
+                    ),
+                  ),
+                ),
+              ],
+            ),
           ),
-          textStyle: MaterialStateProperty.all(
-              const TextStyle(
-                  fontFamily: 'hwxw',
-                  fontSize: 18
-              )
-          ),
-          elevation: MaterialStateProperty.all(0),
-          shape: MaterialStateProperty.all(
-              const RoundedRectangleBorder(
-                  borderRadius: BorderRadius.all(Radius.circular(6))
-              )
-          )
+        ),
       ),
-      child: Text(text),
     );
   }
 }

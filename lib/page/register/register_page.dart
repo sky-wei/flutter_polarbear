@@ -77,7 +77,7 @@ class _RegisterPageState extends State<RegisterPage> {
                     return v!.trim().isEmpty ? "确认密码不能为空!" : null;
                   },
                 ),
-                const SizedBox(height: 30),
+                const SizedBox(height: 40),
                 BigButtonWidget(
                   onPressed: () {
                     if ((_formKey.currentState as FormState).validate()) {

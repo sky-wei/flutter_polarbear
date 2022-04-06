@@ -15,6 +15,8 @@
  */
 
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_polarbear/page/home/settings/about_page.dart';
 import 'package:flutter_polarbear/widget/menu_more_widget.dart';
 import 'package:flutter_polarbear/widget/sort_title_widget.dart';
 
@@ -66,7 +68,13 @@ class _SettingPageState extends State<SettingPage> {
         const SizedBox(height: 15),
         MenuMoreWidget(
           onPressed: () {
-
+            Navigator.of(context).push(
+              MaterialPageRoute(
+                builder: (context) {
+                  return const AboutPage();
+                }
+              )
+            );
           },
           text: 'About',
           icon: 'ic_arrow_right.svg'
