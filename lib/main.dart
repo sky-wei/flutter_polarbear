@@ -15,8 +15,13 @@
  */
 
 import 'package:flutter/material.dart';
+import 'package:flutter_polarbear/page/home/home_page.dart';
+import 'package:flutter_polarbear/page/login/login_page.dart';
+import 'package:flutter_polarbear/page/register/register_page.dart';
+import 'package:flutter_polarbear/page/splash/splash_page.dart';
 import 'package:flutter_polarbear/route.dart';
 import 'package:flutter_polarbear/theme/theme.dart';
+import 'package:flutter_polarbear/util/log.dart';
 
 void main() {
   runApp(const MyApp());
@@ -32,9 +37,32 @@ class MyApp extends StatelessWidget {
       title: 'PolarBear',
       theme: XTheme.lightTheme(),
       debugShowCheckedModeBanner: false,
-      initialRoute: XRoute.home,
-      onGenerateRoute: (settings)=> XRoute.generateRoute(settings),
-      // home: const SplashPage(),
+      routes: {
+        XRoute.splash: (BuildContext context) => const SplashPage(),
+        XRoute.login: (BuildContext context) => const LoginPage(),
+        XRoute.register: (BuildContext context) => const RegisterPage(),
+        XRoute.home: (BuildContext context) => const HomePage(),
+      },
+      initialRoute: XRoute.splash,
+      navigatorObservers: [_MyNavigatorObserver()],
     );
+  }
+}
+
+class _MyNavigatorObserver extends NavigatorObserver {
+
+  @override
+  void didPush(Route<dynamic> route, Route<dynamic>? previousRoute) {
+    XLog.d('>>>>>>>>>>>> didPush $route');
+  }
+
+  @override
+  void didPop(Route<dynamic> route, Route<dynamic>? previousRoute) {
+    XLog.d('>>>>>>>>>>>> didPop $route');
+  }
+
+  @override
+  void didRemove(Route<dynamic> route, Route<dynamic>? previousRoute) {
+    XLog.d('>>>>>>>>>>>> didRemove $route');
   }
 }

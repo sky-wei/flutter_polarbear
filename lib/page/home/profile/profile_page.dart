@@ -22,6 +22,22 @@ import '../../../widget/sub_title_widget.dart';
 import '../../../widget/text_button_widget.dart';
 import '../../register/register_page.dart';
 
+class NavigatorProfile extends StatelessWidget {
+
+  const NavigatorProfile({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Navigator(
+      onGenerateRoute: (settings) {
+        return MaterialPageRoute(builder: (context) {
+          return const ProfilePage();
+        });
+      },
+    );
+  }
+}
+
 class ProfilePage extends StatefulWidget {
 
   const ProfilePage({Key? key}) : super(key: key);

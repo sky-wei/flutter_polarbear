@@ -14,11 +14,26 @@
  * limitations under the License.
  */
 
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_polarbear/page/home/settings/about_page.dart';
 import 'package:flutter_polarbear/widget/menu_more_widget.dart';
 import 'package:flutter_polarbear/widget/sort_title_widget.dart';
+
+class NavigatorSetting extends StatelessWidget {
+
+  const NavigatorSetting({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Navigator(
+      onGenerateRoute: (settings) {
+        return MaterialPageRoute(builder: (context) {
+          return const SettingPage();
+        });
+      },
+    );
+  }
+}
 
 class SettingPage extends StatefulWidget {
 
@@ -32,6 +47,7 @@ class _SettingPageState extends State<SettingPage> {
 
   @override
   Widget build(BuildContext context) {
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [

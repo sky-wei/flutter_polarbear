@@ -15,6 +15,7 @@
  */
 
 import 'package:flutter/material.dart';
+import 'package:flutter_polarbear/util/log.dart';
 import 'package:flutter_polarbear/widget/big_title_widget.dart';
 
 import '../../widget/big_button_widget.dart';
@@ -72,6 +73,7 @@ class _LoginPageState extends State<LoginPage> {
                   if ((_formKey.currentState as FormState).validate()) {
 
                   }
+                  XLog.d('>>>>>>>>>>>>>>>>> ${Navigator.of(context)}');
                 },
                 text: 'Login',
               )

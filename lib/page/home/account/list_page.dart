@@ -14,7 +14,23 @@
  * limitations under the License.
  */
 
-import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
+
+class NavigatorAccountList extends StatelessWidget {
+
+  const NavigatorAccountList({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Navigator(
+      onGenerateRoute: (settings) {
+        return MaterialPageRoute(builder: (context) {
+          return const AccountListPage();
+        });
+      },
+    );
+  }
+}
 
 class AccountListPage extends StatefulWidget {
 

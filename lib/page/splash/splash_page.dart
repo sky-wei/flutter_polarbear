@@ -14,13 +14,28 @@
  * limitations under the License.
  */
 
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_polarbear/theme/color.dart';
+import 'package:flutter_polarbear/route.dart';
 
-class SplashPage extends StatelessWidget {
+class SplashPage extends StatefulWidget {
 
   const SplashPage({Key? key}) : super(key: key);
+
+  @override
+  State<StatefulWidget> createState() => _SplashPageState();
+}
+
+class _SplashPageState extends State<SplashPage> {
+
+  @override
+  void initState() {
+    super.initState();
+
+    Future.delayed(
+      Duration.zero,
+      () => Navigator.pushReplacementNamed(context, XRoute.home)
+    );
+  }
 
   @override
   Widget build(BuildContext context) {

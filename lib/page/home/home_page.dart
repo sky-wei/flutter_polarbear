@@ -74,25 +74,13 @@ class _HomePageState extends State<HomePage> {
   Widget _pageAtIndex(int index) {
     switch(index) {
       case 0:
-        return const AccountListPage();
+        return const NavigatorAccountList();
       case 1:
-        return Navigator(
-          onGenerateRoute: (settings) {
-            return MaterialPageRoute(builder: (context) {
-              return const ProfilePage();
-            });
-          },
-        );
+        return const NavigatorProfile();
       case 2:
-        return const NewAccountPage();
+        return const NavigatorNewAccount();
       case 3:
-        return Navigator(
-          onGenerateRoute: (settings) {
-            return MaterialPageRoute(builder: (context) {
-              return const SettingPage();
-            });
-          },
-        );
+        return const NavigatorSetting();
       default:
         return Center(
           child: Text("Index: $index"),

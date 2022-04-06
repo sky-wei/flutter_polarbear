@@ -25,7 +25,7 @@ class XRoute {
 
   XRoute._();
 
-  static const String splash = "/splash";
+  static const String splash = "/";
 
   static const String login = "/login";
 
@@ -33,51 +33,53 @@ class XRoute {
 
   static const String home = "/home";
 
-  static Route<dynamic>? generateRoute(RouteSettings settings) {
+  static const String settings = "/";
 
-    XLog.d('generateRoute $settings');
-
-    Route<dynamic>? route;
-
-    switch(settings.name) {
-      case splash:
-        route = MaterialPageRoute(
-            builder: (context) {
-              return const SplashPage();
-            }
-        );
-        break;
-      case login:
-        route = MaterialPageRoute(
-            builder: (context) {
-              return const LoginPage();
-            }
-        );
-        break;
-      case register:
-        route = MaterialPageRoute(
-            builder: (context) {
-              return const RegisterPage();
-            }
-        );
-        break;
-      case home:
-        route = MaterialPageRoute(
-            builder: (context) {
-              return const HomePage();
-            }
-        );
-        break;
-      default:
-        route = MaterialPageRoute(
-            builder: (context) {
-              return const LoginPage();
-            }
-        );
-        break;
-    }
-
-    return route;
-  }
+  // static Route<dynamic>? generateRoute(RouteSettings settings) {
+  //
+  //   XLog.d('generateRoute $settings');
+  //
+  //   Route<dynamic>? route;
+  //
+  //   switch(settings.name) {
+  //     case splash:
+  //       route = MaterialPageRoute(
+  //           builder: (context) {
+  //             return const SplashPage();
+  //           }
+  //       );
+  //       break;
+  //     case login:
+  //       route = MaterialPageRoute(
+  //           builder: (context) {
+  //             return const LoginPage();
+  //           }
+  //       );
+  //       break;
+  //     case register:
+  //       route = MaterialPageRoute(
+  //           builder: (context) {
+  //             return const RegisterPage();
+  //           }
+  //       );
+  //       break;
+  //     case home:
+  //       route = MaterialPageRoute(
+  //           builder: (context) {
+  //             return const HomePage();
+  //           }
+  //       );
+  //       break;
+  //     default:
+  //       route = MaterialPageRoute(
+  //           builder: (context) {
+  //             return const LoginPage();
+  //           }
+  //       );
+  //       break;
+  //   }
+  //
+  //   return route;
+  // }
 }
 
