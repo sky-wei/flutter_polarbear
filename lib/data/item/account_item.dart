@@ -14,20 +14,25 @@
  * limitations under the License.
  */
 
-class AdminItem {
+class AccountItem {
+
+  static final AccountItem empty = AccountItem(name: '', adminId: 0, password: '');
 
   final int id;
+  final int adminId;
   final String name;
   final String password;
+  final String url;
   final String desc;
   final int createTime;
 
-  AdminItem({
-   this.id = 0,
-   required this.name,
-   required this.password,
-   this.desc = '',
-   this.createTime = 0
+  AccountItem({
+    this.id = 0,
+    required this.name,
+    required this.adminId,
+    required this.password,
+    this.url = '',
+    this.desc = '',
+    this.createTime = 0
   });
 }
-

@@ -15,6 +15,12 @@
  */
 
 import 'package:flutter/material.dart';
+import 'package:flutter_polarbear/data/item/account_item.dart';
+import 'package:flutter_polarbear/page/home/account/account_page.dart';
+import 'package:flutter_svg/svg.dart';
+
+import '../../../theme/color.dart';
+import '../../../widget/big_search_widget.dart';
 
 class NavigatorAccountList extends StatelessWidget {
 
@@ -42,8 +48,124 @@ class AccountListPage extends StatefulWidget {
 
 class _AccountListPageState extends State<AccountListPage> {
 
+  final List<AccountItem> _accountItems = [
+    AccountItem(name: "Sky", adminId: 0, password: "123456789", url: 'https://www.baidu.com', desc: '测试的'),
+    AccountItem(name: "Sky", adminId: 0, password: "123456789", url: 'https://www.baidu.com', desc: '测试的'),
+    AccountItem(name: "Sky", adminId: 0, password: "123456789", url: 'https://www.baidu.com', desc: '测试的'),
+    AccountItem(name: "Sky", adminId: 0, password: "123456789", url: 'https://www.baidu.com', desc: '测试的'),
+    AccountItem(name: "Sky", adminId: 0, password: "123456789", url: 'https://www.baidu.com', desc: '测试的'),
+    AccountItem(name: "Sky", adminId: 0, password: "123456789", url: 'https://www.baidu.com', desc: '测试的'),
+    AccountItem(name: "Sky", adminId: 0, password: "123456789", url: 'https://www.baidu.com', desc: '测试的'),
+    AccountItem(name: "Sky", adminId: 0, password: "123456789", url: 'https://www.baidu.com', desc: '测试的'),
+    AccountItem(name: "Sky", adminId: 0, password: "123456789", url: 'https://www.baidu.com', desc: '测试的'),
+    AccountItem(name: "Sky", adminId: 0, password: "123456789", url: 'https://www.baidu.com', desc: '测试的'),
+    AccountItem(name: "Sky", adminId: 0, password: "123456789", url: 'https://www.baidu.com', desc: '测试的'),
+    AccountItem(name: "Sky", adminId: 0, password: "123456789", url: 'https://www.baidu.com', desc: '测试的'),
+  ];
+
   @override
   Widget build(BuildContext context) {
-    return Text('A');
+    return Column(
+      children: [
+        const SizedBox(height: 30),
+        const BigSearchWidget(
+          iconName: 'ic_search.svg',
+          labelText: 'Search',
+          textInputAction: TextInputAction.done,
+        ),
+        const SizedBox(height: 30),
+        Expanded(
+          child: _buildAccountList(),
+        ),
+      ],
+    );
+  }
+
+  Widget _buildAccountList() {
+    return ListView.separated(
+      itemCount: _accountItems.length,
+      itemBuilder: (context, index) {
+        return _buildAccountItem(
+          _accountItems[index],
+          (item) {
+            Navigator.of(context).push(
+                MaterialPageRoute(
+                    builder: (context) {
+                      return AccountPage(account: item);
+                    }
+                )
+            );
+          }
+        );
+      },
+      separatorBuilder: (context, index) {
+        return const SizedBox(height: 15);
+      },
+    );
+  }
+
+  Widget _buildAccountItem(
+    AccountItem item,
+    ValueChanged<AccountItem> onPressed
+  ) {
+    return Material(
+      child: Ink(
+        decoration: BoxDecoration(
+          color: XColor.white,
+          borderRadius: BorderRadius.circular(6),
+        ),
+        child: InkWell(
+          borderRadius: BorderRadius.circular(6),
+          onTap: () { onPressed(item); },
+          child: Padding(
+            padding: const EdgeInsets.only(
+                left: 28, top: 20, right: 28, bottom: 20
+            ),
+            child: Stack(
+              alignment: Alignment.centerLeft,
+              children: [
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      item.name,
+                      style: const TextStyle(
+                          fontSize: 18,
+                          color: XColor.black
+                      ),
+                    ),
+                    const SizedBox(height: 6),
+                    Text(
+                      'Url: ${item.url}',
+                      style: const TextStyle(
+                          fontSize: 14,
+                          color: XColor.grayColor
+                      ),
+                    ),
+                    const SizedBox(height: 2),
+                    Text(
+                      'Description: ${item.desc}',
+                      style: const TextStyle(
+                          fontSize: 14,
+                          color: XColor.grayColor
+                      ),
+                    ),
+                  ],
+                ),
+                Align(
+                  alignment: Alignment.centerRight,
+                  child: SvgPicture.asset(
+                      'assets/svg/ic_arrow_right.svg',
+                      color: XColor.black,
+                      width: 22,
+                      height: 22
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ),
+      ),
+    );
   }
 }

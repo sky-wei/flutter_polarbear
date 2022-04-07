@@ -15,64 +15,55 @@
  */
 
 import 'package:flutter/material.dart';
-import 'package:flutter_polarbear/theme/color.dart';
 import 'package:flutter_svg/svg.dart';
 
-class BigInputWidget extends StatelessWidget {
+import '../theme/color.dart';
+
+class BigSearchWidget extends StatelessWidget {
 
   final TextEditingController? controller;
   final String iconName;
   final String? labelText;
   final bool autofocus;
-  final bool obscureText;
   final TextInputAction? textInputAction;
-  final FormFieldValidator<String>? validator;
   final TextInputType keyboardType;
-  final int maxLines;
 
-  const BigInputWidget({
+  const BigSearchWidget({
     Key? key,
     this.controller,
     required this.iconName,
     this.labelText,
     this.autofocus = false,
-    this.obscureText = false,
     this.textInputAction,
-    this.validator,
     this.keyboardType = TextInputType.text,
-    this.maxLines = 1,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      width: 300,
-      child: TextFormField(
+      width: double.infinity,
+      child: TextField(
         controller: controller,
         autofocus: autofocus,
-        obscureText: obscureText,
         decoration: InputDecoration(
-          prefixIcon: Padding(
-            padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
-            child: SvgPicture.asset(
-              'assets/svg/$iconName',
-              color: XColor.black,
-              width: 28,
-              height: 28,
+            prefixIcon: Padding(
+              padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
+              child: SvgPicture.asset(
+                'assets/svg/$iconName',
+                color: XColor.black,
+                width: 30,
+                height: 30,
+              ),
             ),
-          ),
-          labelText: labelText,
-          border: const OutlineInputBorder(
-            borderRadius: BorderRadius.all(Radius.circular(6))
-          ),
-          contentPadding: const EdgeInsets.symmetric(vertical: 23)
+            labelText: labelText,
+            border: const OutlineInputBorder(
+                borderRadius: BorderRadius.all(Radius.circular(6))
+            ),
+            contentPadding: const EdgeInsets.symmetric(vertical: 23)
         ),
         textInputAction: textInputAction,
         keyboardType: keyboardType,
-        maxLines: maxLines,
-        validator: validator,
       ),
     );
   }
 }
-

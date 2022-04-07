@@ -47,7 +47,8 @@ class MenuMoreWidget extends StatelessWidget {
           onTap: onPressed,
           child: Padding(
             padding: const EdgeInsets.only(
-                left: 28, top: 24, right: 28, bottom: 24),
+                left: 28, top: 24, right: 28, bottom: 24
+            ),
             child: Stack(
               alignment: Alignment.centerLeft,
               children: [

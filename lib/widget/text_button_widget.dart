@@ -24,12 +24,14 @@ class TextButtonWidget extends StatelessWidget {
   final VoidCallback? onPressed;
   final String text;
   final String icon;
+  final Color color;
 
   const TextButtonWidget({
     Key? key,
     this.onPressed,
     required this.text,
-    required this.icon
+    required this.icon,
+    this.color = XColor.black
   }) : super(key: key);
 
   @override
@@ -43,15 +45,15 @@ class TextButtonWidget extends StatelessWidget {
       ),
       icon: SvgPicture.asset(
         'assets/svg/$icon',
-        color: XColor.black,
+        color: color,
         width: 24,
         height: 24,
       ),
       label: Text(
         text,
-        style: const TextStyle(
+        style: TextStyle(
           fontSize: 15,
-          color: XColor.black
+          color: color
         ),
       )
     );
