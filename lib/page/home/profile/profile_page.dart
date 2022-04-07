@@ -20,7 +20,7 @@ import 'package:flutter_polarbear/widget/menu_text_widget.dart';
 import '../../../data/item/admin_item.dart';
 import '../../../widget/sub_title_widget.dart';
 import '../../../widget/text_button_widget.dart';
-import '../../register/register_page.dart';
+import 'edit_page.dart';
 
 class NavigatorProfile extends StatelessWidget {
 
@@ -79,7 +79,7 @@ class _ProfilePageState extends State<ProfilePage> {
               Navigator.of(context).push(
                 MaterialPageRoute(
                   builder: (context) {
-                    return const RegisterPage();
+                    return const EditProfilePage();
                   }
                 )
               );

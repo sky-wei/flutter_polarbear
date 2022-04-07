@@ -14,53 +14,51 @@
  * limitations under the License.
  */
 
-import 'package:flutter/material.dart';
+import 'package:flutter/cupertino.dart';
 
 import '../../../widget/big_button_widget.dart';
 import '../../../widget/big_input_widget.dart';
-import '../../../widget/sub_title_widget.dart';
+import '../../../widget/sub_bar_widget.dart';
 
-class NavigatorNewAccount extends StatelessWidget {
+class EditProfilePage extends StatefulWidget {
 
-  const NavigatorNewAccount({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return const NewAccountPage();
-  }
-}
-
-class NewAccountPage extends StatefulWidget {
-
-  const NewAccountPage({Key? key}) : super(key: key);
+  const EditProfilePage({Key? key}) : super(key: key);
 
   @override
-  State<StatefulWidget> createState() => _NewAccountPageState();
+  State<StatefulWidget> createState() => _EditProfilePage();
 }
 
-class _NewAccountPageState extends State<NewAccountPage> {
+class _EditProfilePage extends State<EditProfilePage> {
 
   final TextEditingController _nameController = TextEditingController();
-  final TextEditingController _urlController = TextEditingController();
   final TextEditingController _descController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
+  final TextEditingController _newPasswordController = TextEditingController();
 
   final GlobalKey _formKey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
     return Column(
+      crossAxisAlignment: CrossAxisAlignment.center,
       children: [
-        const SizedBox(height: 45),
-        const SubTitleWidget(title: 'Account'),
+        const SizedBox(height: 35),
+        SubBarWidget(
+          onPressed: () {
+            Navigator.of(context).pop();
+          },
+          title: 'Edit',
+          backIcon: 'ic_back.svg',
+          backText: 'Admin',
+        ),
         Expanded(
-          child: _buildNewAccount(),
+          child: _buildEditAccount(),
         )
       ],
     );
   }
 
-  Widget _buildNewAccount() {
+  Widget _buildEditAccount() {
     return Center(
         child: Form(
           key: _formKey,
@@ -90,11 +88,12 @@ class _NewAccountPageState extends State<NewAccountPage> {
               ),
               const SizedBox(height: 20),
               BigInputWidget(
-                controller: _urlController,
-                iconName: 'ic_url.svg',
-                labelText: 'Url',
+                controller: _newPasswordController,
+                iconName: 'ic_password.svg',
+                labelText: 'NewPassword',
+                obscureText: true,
                 validator: (v) {
-                  return v!.trim().isEmpty ? "URL不能为空!" : null;
+                  return v!.trim().isEmpty ? "新密码不能为空!" : null;
                 },
               ),
               const SizedBox(height: 20),
@@ -115,7 +114,7 @@ class _NewAccountPageState extends State<NewAccountPage> {
 
                   }
                 },
-                text: 'Create',
+                text: 'Change',
               )
             ],
           ),
