@@ -18,6 +18,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter_polarbear/constant.dart';
 import 'package:flutter_polarbear/widget/sub_bar_widget.dart';
 
+import '../../../generated/l10n.dart';
 import '../../../widget/menu_text_widget.dart';
 
 class AboutPage extends StatelessWidget {
@@ -34,9 +35,9 @@ class AboutPage extends StatelessWidget {
           onPressed: () {
             Navigator.of(context).pop();
           },
-          title: 'About',
+          title: S.of(context).about,
           backIcon: 'ic_back.svg',
-          backText: 'Settings',
+          backText: S.of(context).settings,
         ),
         const SizedBox(height: 40),
         Image.asset(
@@ -45,18 +46,18 @@ class AboutPage extends StatelessWidget {
           height: 130,
         ),
         const SizedBox(height: 26),
-        const MenuTextWidget(
-          text: 'Version',
+        MenuTextWidget(
+          text: S.of(context).version,
           desc: XConstant.versionName,
         ),
         const SizedBox(height: 15),
-        const MenuTextWidget(
-          text: 'Mail',
+        MenuTextWidget(
+          text: S.of(context).mail,
           desc: 'jingcai.wei@163.com',
         ),
         const SizedBox(height: 15),
-        const MenuTextWidget(
-          text: 'Source',
+        MenuTextWidget(
+          text: S.of(context).source,
           desc: 'https://github.com/sky-wei/flutter_polarbear',
         ),
       ],

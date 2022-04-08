@@ -19,6 +19,8 @@ import 'package:flutter_polarbear/page/home/settings/about_page.dart';
 import 'package:flutter_polarbear/widget/menu_more_widget.dart';
 import 'package:flutter_polarbear/widget/sort_title_widget.dart';
 
+import '../../../generated/l10n.dart';
+
 class NavigatorSetting extends StatelessWidget {
 
   const NavigatorSetting({Key? key}) : super(key: key);
@@ -52,13 +54,13 @@ class _SettingPageState extends State<SettingPage> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         const SizedBox(height: 45),
-        const SortTitleWidget(title: 'Account'),
+        SortTitleWidget(title: S.of(context).account),
         const SizedBox(height: 15),
         MenuMoreWidget(
           onPressed: () {
 
           },
-          text: 'Import',
+          text: S.of(context).import,
           icon: 'ic_arrow_right.svg'
         ),
         const SizedBox(height: 15),
@@ -66,21 +68,21 @@ class _SettingPageState extends State<SettingPage> {
           onPressed: () {
 
           },
-          text: 'Export',
-          icon: 'ic_arrow_right.svg'
-        ),
-        const SizedBox(height: 30),
-        const SortTitleWidget(title: 'Storage'),
-        const SizedBox(height: 15),
-        MenuMoreWidget(
-          onPressed: () {
-
-          },
-          text: 'Clear Data',
+          text: S.of(context).export,
           icon: 'ic_arrow_right.svg'
         ),
         const SizedBox(height: 30),
-        const SortTitleWidget(title: 'Other'),
+        SortTitleWidget(title: S.of(context).storage),
+        const SizedBox(height: 15),
+        MenuMoreWidget(
+          onPressed: () {
+
+          },
+          text: S.of(context).clearData,
+          icon: 'ic_arrow_right.svg'
+        ),
+        const SizedBox(height: 30),
+        SortTitleWidget(title: S.of(context).other),
         const SizedBox(height: 15),
         MenuMoreWidget(
           onPressed: () {
@@ -92,7 +94,7 @@ class _SettingPageState extends State<SettingPage> {
               )
             );
           },
-          text: 'About',
+          text: S.of(context).about,
           icon: 'ic_arrow_right.svg'
         ),
       ],

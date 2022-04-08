@@ -16,6 +16,7 @@
 
 import 'package:flutter/cupertino.dart';
 
+import '../../../generated/l10n.dart';
 import '../../../widget/big_button_widget.dart';
 import '../../../widget/big_input_widget.dart';
 import '../../../widget/sub_bar_widget.dart';
@@ -47,9 +48,9 @@ class _EditProfilePage extends State<EditProfilePage> {
           onPressed: () {
             Navigator.of(context).pop();
           },
-          title: 'Edit',
+          title: S.of(context).edit,
           backIcon: 'ic_back.svg',
-          backText: 'Admin',
+          backText: S.of(context).admin,
         ),
         Expanded(
           child: _buildEditAccount(),
@@ -70,7 +71,7 @@ class _EditProfilePage extends State<EditProfilePage> {
               BigInputWidget(
                 controller: _nameController,
                 iconName: 'ic_user.svg',
-                labelText: 'Name',
+                labelText: S.of(context).name,
                 autofocus: true,
                 validator: (v) {
                   return v!.trim().isEmpty ? "名称不能为空!" : null;
@@ -80,7 +81,7 @@ class _EditProfilePage extends State<EditProfilePage> {
               BigInputWidget(
                 controller: _passwordController,
                 iconName: 'ic_password.svg',
-                labelText: 'Password',
+                labelText: S.of(context).password,
                 obscureText: true,
                 validator: (v) {
                   return v!.trim().isEmpty ? "密码不能为空!" : null;
@@ -90,7 +91,7 @@ class _EditProfilePage extends State<EditProfilePage> {
               BigInputWidget(
                 controller: _newPasswordController,
                 iconName: 'ic_password.svg',
-                labelText: 'NewPassword',
+                labelText: S.of(context).newPassword,
                 obscureText: true,
                 validator: (v) {
                   return v!.trim().isEmpty ? "新密码不能为空!" : null;
@@ -100,7 +101,7 @@ class _EditProfilePage extends State<EditProfilePage> {
               BigInputWidget(
                 controller: _descController,
                 iconName: 'ic_desc.svg',
-                labelText: 'Description',
+                labelText: S.of(context).desc,
                 validator: (v) {
                   return v!.trim().isEmpty ? "描述不能为空!" : null;
                 },
@@ -114,7 +115,7 @@ class _EditProfilePage extends State<EditProfilePage> {
 
                   }
                 },
-                text: 'Change',
+                text: S.of(context).change,
               )
             ],
           ),

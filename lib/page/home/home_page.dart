@@ -22,6 +22,7 @@ import 'package:flutter_polarbear/page/home/profile/profile_page.dart';
 import 'package:flutter_polarbear/page/home/settings/setting_page.dart';
 import 'package:flutter_polarbear/page/home/side_scaffold.dart';
 
+import '../../generated/l10n.dart';
 import 'create/create_page.dart';
 
 class HomePage extends StatefulWidget {
@@ -41,24 +42,24 @@ class _HomePageState extends State<HomePage> {
     return SideScaffold(
       sideTitle: SideTitle(
         icon: 'assets/image/icon.png',
-        name: 'Account Manage'
+        name: S.of(context).accountManage
       ),
       sideItems: [
         SideItem(
           icon: 'ic_home.svg',
-          name: 'Home',
+          name: S.of(context).home,
         ),
         SideItem(
           icon: 'ic_profile.svg',
-          name: 'Profile',
+          name: S.of(context).profile,
         ),
         SideItem(
           icon: 'ic_create.svg',
-          name: 'New',
+          name: S.of(context).appNew,
         ),
         SideItem(
           icon: 'ic_settings.svg',
-          name: 'Settings',
+          name: S.of(context).settings,
         ),
       ],
       currentIndex: _currentIndex,

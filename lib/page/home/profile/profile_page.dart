@@ -18,6 +18,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_polarbear/widget/menu_text_widget.dart';
 
 import '../../../data/item/admin_item.dart';
+import '../../../generated/l10n.dart';
 import '../../../widget/sub_title_widget.dart';
 import '../../../widget/text_button_widget.dart';
 import 'edit_page.dart';
@@ -55,21 +56,21 @@ class _ProfilePageState extends State<ProfilePage> {
     return Column(
       children: [
         const SizedBox(height: 45),
-        const SubTitleWidget(title: 'Admin'),
+        SubTitleWidget(title: S.of(context).admin),
         const SizedBox(height: 55),
         MenuTextWidget(
-          text: 'Name',
-          desc: _adminItem?.name ?? 'jingcai.wei',
+          text: S.of(context).name,
+          desc: _adminItem?.name ?? '',
         ),
         const SizedBox(height: 15),
-        const MenuTextWidget(
-          text: 'Password',
+        MenuTextWidget(
+          text: S.of(context).password,
           desc: '******',
         ),
         const SizedBox(height: 15),
         MenuTextWidget(
-          text: 'Description',
-          desc: _adminItem?.desc ?? 'admin',
+          text: S.of(context).desc,
+          desc: _adminItem?.desc ?? '',
         ),
         const SizedBox(height: 40),
         Align(
@@ -85,7 +86,7 @@ class _ProfilePageState extends State<ProfilePage> {
               );
             },
             icon: 'ic_edit.svg',
-            text: 'Edit',
+            text: S.of(context).edit,
           ),
         )
       ],

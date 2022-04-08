@@ -18,6 +18,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_polarbear/util/log.dart';
 import 'package:flutter_polarbear/widget/big_title_widget.dart';
 
+import '../../generated/l10n.dart';
 import '../../widget/big_button_widget.dart';
 import '../../widget/big_input_widget.dart';
 
@@ -46,12 +47,12 @@ class _LoginPageState extends State<LoginPage> {
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
-              const BigTitleWidget(title: "Welcome"),
+              BigTitleWidget(title: S.of(context).welcome),
               const SizedBox(height: 60),
               BigInputWidget(
                 controller: _nameController,
                 iconName: 'ic_user.svg',
-                labelText: 'Name',
+                labelText: S.of(context).name,
                 autofocus: true,
                 validator: (v) {
                   return v!.trim().isEmpty ? "名称不能为空!" : null;
@@ -61,7 +62,7 @@ class _LoginPageState extends State<LoginPage> {
               BigInputWidget(
                 controller: _passwordController,
                 iconName: 'ic_password.svg',
-                labelText: 'Password',
+                labelText: S.of(context).password,
                 obscureText: true,
                 validator: (v) {
                   return v!.trim().isEmpty ? "密码不能为空!" : null;
@@ -75,7 +76,7 @@ class _LoginPageState extends State<LoginPage> {
                   }
                   XLog.d('>>>>>>>>>>>>>>>>> ${Navigator.of(context)}');
                 },
-                text: 'Login',
+                text: S.of(context).login,
               )
             ],
           ),

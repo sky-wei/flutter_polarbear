@@ -19,6 +19,7 @@ import 'package:flutter_polarbear/data/item/account_item.dart';
 import 'package:flutter_polarbear/page/home/account/account_page.dart';
 import 'package:flutter_svg/svg.dart';
 
+import '../../../generated/l10n.dart';
 import '../../../theme/color.dart';
 import '../../../widget/big_search_widget.dart';
 
@@ -68,9 +69,9 @@ class _AccountListPageState extends State<AccountListPage> {
     return Column(
       children: [
         const SizedBox(height: 30),
-        const BigSearchWidget(
+        BigSearchWidget(
           iconName: 'ic_search.svg',
-          labelText: 'Search',
+          labelText: S.of(context).search,
           textInputAction: TextInputAction.done,
         ),
         const SizedBox(height: 30),
@@ -136,7 +137,7 @@ class _AccountListPageState extends State<AccountListPage> {
                     ),
                     const SizedBox(height: 6),
                     Text(
-                      'Url: ${item.url}',
+                      S.of(context).urlX(item.url),
                       style: const TextStyle(
                           fontSize: 14,
                           color: XColor.grayColor
@@ -144,7 +145,7 @@ class _AccountListPageState extends State<AccountListPage> {
                     ),
                     const SizedBox(height: 2),
                     Text(
-                      'Description: ${item.desc}',
+                      S.of(context).descX(item.desc),
                       style: const TextStyle(
                           fontSize: 14,
                           color: XColor.grayColor

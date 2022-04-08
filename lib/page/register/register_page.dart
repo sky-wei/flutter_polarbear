@@ -16,6 +16,7 @@
 
 import 'package:flutter/material.dart';
 
+import '../../generated/l10n.dart';
 import '../../widget/big_button_widget.dart';
 import '../../widget/big_input_widget.dart';
 import '../../widget/big_title_widget.dart';
@@ -51,7 +52,7 @@ class _RegisterPageState extends State<RegisterPage> {
                 BigInputWidget(
                   controller: _nameController,
                   iconName: 'ic_user.svg',
-                  labelText: 'Name',
+                  labelText: S.of(context).name,
                   autofocus: true,
                   validator: (v) {
                     return v!.trim().isEmpty ? "名称不能为空!" : null;
@@ -61,7 +62,7 @@ class _RegisterPageState extends State<RegisterPage> {
                 BigInputWidget(
                   controller: _passwordController,
                   iconName: 'ic_password.svg',
-                  labelText: 'Password',
+                  labelText: S.of(context).password,
                   obscureText: true,
                   validator: (v) {
                     return v!.trim().isEmpty ? "密码不能为空!" : null;
@@ -71,7 +72,7 @@ class _RegisterPageState extends State<RegisterPage> {
                 BigInputWidget(
                   controller: _confirmPasswordController,
                   iconName: 'ic_password.svg',
-                  labelText: 'ConfirmPassword',
+                  labelText: S.of(context).confirmPassword,
                   obscureText: true,
                   validator: (v) {
                     return v!.trim().isEmpty ? "确认密码不能为空!" : null;
@@ -84,7 +85,7 @@ class _RegisterPageState extends State<RegisterPage> {
 
                     }
                   },
-                  text: 'Register',
+                  text: S.of(context).register,
                 )
               ],
             ),

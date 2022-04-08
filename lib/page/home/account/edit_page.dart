@@ -17,6 +17,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_polarbear/data/item/account_item.dart';
 
+import '../../../generated/l10n.dart';
 import '../../../widget/big_button_widget.dart';
 import '../../../widget/big_input_widget.dart';
 import '../../../widget/sub_bar_widget.dart';
@@ -63,9 +64,9 @@ class _EditAccountPage extends State<EditAccountPage> {
           onPressed: () {
             Navigator.of(context).pop();
           },
-          title: 'Edit',
+          title: S.of(context).edit,
           backIcon: 'ic_back.svg',
-          backText: 'Account',
+          backText: S.of(context).account,
         ),
         Expanded(
           child: _buildEditAccount(),
@@ -86,7 +87,7 @@ class _EditAccountPage extends State<EditAccountPage> {
               BigInputWidget(
                 controller: _nameController,
                 iconName: 'ic_user.svg',
-                labelText: 'Name',
+                labelText: S.of(context).name,
                 autofocus: true,
                 validator: (v) {
                   return v!.trim().isEmpty ? "名称不能为空!" : null;
@@ -96,7 +97,7 @@ class _EditAccountPage extends State<EditAccountPage> {
               BigInputWidget(
                 controller: _passwordController,
                 iconName: 'ic_password.svg',
-                labelText: 'Password',
+                labelText: S.of(context).password,
                 obscureText: true,
                 validator: (v) {
                   return v!.trim().isEmpty ? "密码不能为空!" : null;
@@ -106,7 +107,7 @@ class _EditAccountPage extends State<EditAccountPage> {
               BigInputWidget(
                 controller: _urlController,
                 iconName: 'ic_url.svg',
-                labelText: 'Url',
+                labelText: S.of(context).url,
                 validator: (v) {
                   return v!.trim().isEmpty ? "URL不能为空!" : null;
                 },
@@ -115,7 +116,7 @@ class _EditAccountPage extends State<EditAccountPage> {
               BigInputWidget(
                 controller: _descController,
                 iconName: 'ic_desc.svg',
-                labelText: 'Description',
+                labelText: S.of(context).desc,
                 validator: (v) {
                   return v!.trim().isEmpty ? "描述不能为空!" : null;
                 },
@@ -129,7 +130,7 @@ class _EditAccountPage extends State<EditAccountPage> {
 
                   }
                 },
-                text: 'Change',
+                text: S.of(context).change,
               )
             ],
           ),

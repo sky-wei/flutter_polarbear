@@ -15,6 +15,7 @@
  */
 
 import 'package:flutter/material.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_polarbear/page/home/home_page.dart';
 import 'package:flutter_polarbear/page/login/login_page.dart';
 import 'package:flutter_polarbear/page/register/register_page.dart';
@@ -22,6 +23,8 @@ import 'package:flutter_polarbear/page/splash/splash_page.dart';
 import 'package:flutter_polarbear/route.dart';
 import 'package:flutter_polarbear/theme/theme.dart';
 import 'package:flutter_polarbear/util/log.dart';
+
+import 'generated/l10n.dart';
 
 void main() {
   runApp(const MyApp());
@@ -44,6 +47,13 @@ class MyApp extends StatelessWidget {
         XRoute.home: (BuildContext context) => const HomePage(),
       },
       initialRoute: XRoute.splash,
+      localizationsDelegates: const [
+        S.delegate,
+        GlobalMaterialLocalizations.delegate,
+        GlobalCupertinoLocalizations.delegate,
+        GlobalWidgetsLocalizations.delegate
+      ],
+      supportedLocales: S.delegate.supportedLocales,
       navigatorObservers: [_MyNavigatorObserver()],
     );
   }

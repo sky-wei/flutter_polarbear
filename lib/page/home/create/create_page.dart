@@ -16,6 +16,7 @@
 
 import 'package:flutter/material.dart';
 
+import '../../../generated/l10n.dart';
 import '../../../widget/big_button_widget.dart';
 import '../../../widget/big_input_widget.dart';
 import '../../../widget/sub_title_widget.dart';
@@ -52,7 +53,7 @@ class _NewAccountPageState extends State<NewAccountPage> {
     return Column(
       children: [
         const SizedBox(height: 45),
-        const SubTitleWidget(title: 'Account'),
+        SubTitleWidget(title: S.of(context).account),
         Expanded(
           child: _buildNewAccount(),
         )
@@ -72,7 +73,7 @@ class _NewAccountPageState extends State<NewAccountPage> {
               BigInputWidget(
                 controller: _nameController,
                 iconName: 'ic_user.svg',
-                labelText: 'Name',
+                labelText: S.of(context).name,
                 autofocus: true,
                 validator: (v) {
                   return v!.trim().isEmpty ? "名称不能为空!" : null;
@@ -82,7 +83,7 @@ class _NewAccountPageState extends State<NewAccountPage> {
               BigInputWidget(
                 controller: _passwordController,
                 iconName: 'ic_password.svg',
-                labelText: 'Password',
+                labelText: S.of(context).password,
                 obscureText: true,
                 validator: (v) {
                   return v!.trim().isEmpty ? "密码不能为空!" : null;
@@ -92,7 +93,7 @@ class _NewAccountPageState extends State<NewAccountPage> {
               BigInputWidget(
                 controller: _urlController,
                 iconName: 'ic_url.svg',
-                labelText: 'Url',
+                labelText: S.of(context).url,
                 validator: (v) {
                   return v!.trim().isEmpty ? "URL不能为空!" : null;
                 },
@@ -101,7 +102,7 @@ class _NewAccountPageState extends State<NewAccountPage> {
               BigInputWidget(
                 controller: _descController,
                 iconName: 'ic_desc.svg',
-                labelText: 'Description',
+                labelText: S.of(context).desc,
                 validator: (v) {
                   return v!.trim().isEmpty ? "描述不能为空!" : null;
                 },
@@ -115,7 +116,7 @@ class _NewAccountPageState extends State<NewAccountPage> {
 
                   }
                 },
-                text: 'Create',
+                text: S.of(context).create,
               )
             ],
           ),

@@ -17,6 +17,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_polarbear/route.dart';
 
+import '../../generated/l10n.dart';
+
 class SplashPage extends StatefulWidget {
 
   const SplashPage({Key? key}) : super(key: key);
@@ -39,11 +41,11 @@ class _SplashPageState extends State<SplashPage> {
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
+    return Scaffold(
       body: Center(
           child: Text(
-            "Loading...",
-            style: TextStyle(
+            S.of(context).loading,
+            style: const TextStyle(
               fontSize: 30,
             ),
           )

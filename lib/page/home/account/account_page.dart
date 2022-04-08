@@ -19,6 +19,7 @@ import 'package:flutter_polarbear/data/item/account_item.dart';
 import 'package:flutter_polarbear/page/home/account/edit_page.dart';
 import 'package:flutter_polarbear/theme/color.dart';
 
+import '../../../generated/l10n.dart';
 import '../../../widget/menu_text_widget.dart';
 import '../../../widget/sub_bar_widget.dart';
 import '../../../widget/text_button_widget.dart';
@@ -48,28 +49,28 @@ class _AccountPageState extends State<AccountPage> {
           onPressed: () {
             Navigator.of(context).pop();
           },
-          title: 'Account',
+          title: S.of(context).account,
           backIcon: 'ic_back.svg',
-          backText: 'Home',
+          backText: S.of(context).home,
         ),
         const SizedBox(height: 45),
         MenuTextWidget(
-          text: 'Name',
+          text: S.of(context).name,
           desc: widget.account.name,
         ),
         const SizedBox(height: 15),
         MenuTextWidget(
-          text: 'Password',
+          text: S.of(context).password,
           desc: widget.account.password,
         ),
         const SizedBox(height: 15),
         MenuTextWidget(
-          text: 'Url',
+          text: S.of(context).url,
           desc: widget.account.url,
         ),
         const SizedBox(height: 15),
         MenuTextWidget(
-          text: 'Description',
+          text: S.of(context).desc,
           desc: widget.account.desc,
         ),
         const SizedBox(height: 40),
@@ -89,7 +90,7 @@ class _AccountPageState extends State<AccountPage> {
                   );
                 },
                 icon: 'ic_edit.svg',
-                text: 'Edit',
+                text: S.of(context).edit,
               ),
               const SizedBox(width: 30),
               TextButtonWidget(
@@ -97,7 +98,7 @@ class _AccountPageState extends State<AccountPage> {
 
                 },
                 icon: 'ic_delete.svg',
-                text: 'Delete',
+                text: S.of(context).delete,
                 color: XColor.themeColor,
               ),
             ],

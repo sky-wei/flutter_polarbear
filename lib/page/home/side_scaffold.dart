@@ -21,6 +21,8 @@ import 'package:flutter_polarbear/data/item/side_title.dart';
 import 'package:flutter_polarbear/theme/color.dart';
 import 'package:flutter_svg/svg.dart';
 
+import '../../generated/l10n.dart';
+
 class SideScaffold extends StatefulWidget {
 
   final SideTitle sideTitle;
@@ -68,11 +70,11 @@ class _SideScaffoldState extends State<SideScaffold> {
               Column(
                 children: _buildSideList(),
               ),
-              const Align(
+              Align(
                 alignment: Alignment.bottomCenter,
                 child: Text(
-                  "Version: ${XConstant.versionName}",
-                  style: TextStyle(
+                  S.of(context).versionX(XConstant.versionName),
+                  style: const TextStyle(
                       color: XColor.grayColor
                   ),
                 ),
