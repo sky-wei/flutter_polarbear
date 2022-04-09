@@ -18,9 +18,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_polarbear/data/item/account_item.dart';
 import 'package:flutter_polarbear/page/home/account/account_page.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:provider/provider.dart';
 
+import '../../../data/account_manager.dart';
 import '../../../generated/l10n.dart';
 import '../../../theme/color.dart';
+import '../../../util/error_util.dart';
+import '../../../util/message_util.dart';
 import '../../../widget/big_search_widget.dart';
 
 class NavigatorAccountList extends StatelessWidget {
@@ -49,20 +53,23 @@ class AccountListPage extends StatefulWidget {
 
 class _AccountListPageState extends State<AccountListPage> {
 
-  final List<AccountItem> _accountItems = [
-    AccountItem(name: "Sky", adminId: 0, password: "123456789", url: 'https://www.baidu.com', desc: '测试的'),
-    AccountItem(name: "Sky", adminId: 0, password: "123456789", url: 'https://www.baidu.com', desc: '测试的'),
-    AccountItem(name: "Sky", adminId: 0, password: "123456789", url: 'https://www.baidu.com', desc: '测试的'),
-    AccountItem(name: "Sky", adminId: 0, password: "123456789", url: 'https://www.baidu.com', desc: '测试的'),
-    AccountItem(name: "Sky", adminId: 0, password: "123456789", url: 'https://www.baidu.com', desc: '测试的'),
-    AccountItem(name: "Sky", adminId: 0, password: "123456789", url: 'https://www.baidu.com', desc: '测试的'),
-    AccountItem(name: "Sky", adminId: 0, password: "123456789", url: 'https://www.baidu.com', desc: '测试的'),
-    AccountItem(name: "Sky", adminId: 0, password: "123456789", url: 'https://www.baidu.com', desc: '测试的'),
-    AccountItem(name: "Sky", adminId: 0, password: "123456789", url: 'https://www.baidu.com', desc: '测试的'),
-    AccountItem(name: "Sky", adminId: 0, password: "123456789", url: 'https://www.baidu.com', desc: '测试的'),
-    AccountItem(name: "Sky", adminId: 0, password: "123456789", url: 'https://www.baidu.com', desc: '测试的'),
-    AccountItem(name: "Sky", adminId: 0, password: "123456789", url: 'https://www.baidu.com', desc: '测试的'),
-  ];
+  final List<AccountItem> _accountItems = [];
+
+  @override
+  void initState() {
+    super.initState();
+
+    var accountManager = context.read<AccountManager>();
+
+    accountManager.loadByAdmin(accountManager.admin.id).then((value) {
+      setState(() {
+        _accountItems.clear();
+        _accountItems.addAll(value);
+      });
+    }).onError((error, stackTrace) {
+      MessageUtil.showMessage(context, ErrorUtil.getMessage(context, error));
+    });
+  }
 
   @override
   Widget build(BuildContext context) {

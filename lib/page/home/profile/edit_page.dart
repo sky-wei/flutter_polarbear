@@ -63,7 +63,6 @@ class _EditProfilePage extends State<EditProfilePage> {
     return Center(
         child: Form(
           key: _formKey,
-          autovalidateMode: AutovalidateMode.onUserInteraction,
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [

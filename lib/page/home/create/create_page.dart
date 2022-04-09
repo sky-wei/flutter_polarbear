@@ -15,8 +15,13 @@
  */
 
 import 'package:flutter/material.dart';
+import 'package:flutter_polarbear/data/item/account_item.dart';
+import 'package:provider/provider.dart';
 
+import '../../../data/account_manager.dart';
 import '../../../generated/l10n.dart';
+import '../../../util/error_util.dart';
+import '../../../util/message_util.dart';
 import '../../../widget/big_button_widget.dart';
 import '../../../widget/big_input_widget.dart';
 import '../../../widget/sub_title_widget.dart';
@@ -65,7 +70,6 @@ class _NewAccountPageState extends State<NewAccountPage> {
     return Center(
         child: Form(
           key: _formKey,
-          autovalidateMode: AutovalidateMode.onUserInteraction,
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
@@ -111,16 +115,50 @@ class _NewAccountPageState extends State<NewAccountPage> {
               ),
               const SizedBox(height: 40),
               BigButtonWidget(
-                onPressed: () {
-                  if ((_formKey.currentState as FormState).validate()) {
-
-                  }
-                },
+                onPressed: () => _createAccount(),
                 text: S.of(context).create,
               )
             ],
           ),
         )
     );
+  }
+
+  void _createAccount() {
+
+    if (!(_formKey.currentState as FormState).validate()) {
+      return;
+    }
+
+    var name = _nameController.text;
+    var password = _passwordController.text;
+    var url = _urlController.text;
+    var desc = _descController.text;
+
+    var accountManager = context.read<AccountManager>();
+
+    accountManager.createAccount(
+      accountManager.encryptAccount(
+        AccountItem(
+          name: name,
+          adminId: accountManager.admin.id,
+          password: password,
+          url: url,
+          desc: desc
+        )
+      )
+    ).then((value) {
+      _clearText();
+      MessageUtil.showMessage(context, '添加账号成功！');
+    }).onError((error, stackTrace) {
+      MessageUtil.showMessage(context, ErrorUtil.getMessage(context, error));
+    });
+  }
+
+  void _clearText() {
+    _nameController.clear();
+    _passwordController.clear();
+    _urlController.clear();
+    _descController.clear();
   }
 }

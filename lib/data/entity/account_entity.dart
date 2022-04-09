@@ -14,19 +14,28 @@
  * limitations under the License.
  */
 
-class AccountItem {
+import 'package:objectbox/objectbox.dart';
 
-  static final AccountItem empty = AccountItem(name: '', adminId: 0, password: '');
+@Entity()
+class AccountEntity {
 
-  final int id;
-  final int adminId;
-  final String name;
-  final String password;
-  final String url;
-  final String desc;
-  final int createTime;
+  @Id(assignable: true)
+  int id;
 
-  AccountItem({
+  int adminId;
+
+  String name;
+
+  String password;
+
+  String url;
+
+  @Index(type: IndexType.value)
+  String desc;
+
+  int createTime;
+
+  AccountEntity({
     this.id = 0,
     required this.name,
     required this.adminId,
@@ -35,24 +44,4 @@ class AccountItem {
     this.desc = '',
     this.createTime = 0
   });
-
-  AccountItem copy({
-    int? id,
-    int? adminId,
-    String? name,
-    String? password,
-    String? url,
-    String? desc,
-    int? createTime
-  }) {
-    return AccountItem(
-        id: id ?? this.id,
-        adminId: adminId ?? this.adminId,
-        name: name ?? this.name,
-        password: password ?? this.password,
-        url: url ?? this.url,
-        desc: desc ?? this.desc,
-        createTime: createTime ?? this.createTime
-    );
-  }
 }

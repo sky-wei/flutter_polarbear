@@ -19,7 +19,7 @@ import 'package:flutter_polarbear/page/home/home_page.dart';
 import 'package:flutter_polarbear/page/login/login_page.dart';
 import 'package:flutter_polarbear/page/register/register_page.dart';
 import 'package:flutter_polarbear/page/splash/splash_page.dart';
-import 'package:flutter_polarbear/util/log.dart';
+import 'package:flutter_polarbear/util/log_util.dart';
 
 class XRoute {
 

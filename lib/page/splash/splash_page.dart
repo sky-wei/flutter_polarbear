@@ -15,7 +15,9 @@
  */
 
 import 'package:flutter/material.dart';
+import 'package:flutter_polarbear/data/account_manager.dart';
 import 'package:flutter_polarbear/route.dart';
+import 'package:provider/provider.dart';
 
 import '../../generated/l10n.dart';
 
@@ -33,10 +35,12 @@ class _SplashPageState extends State<SplashPage> {
   void initState() {
     super.initState();
 
-    Future.delayed(
-      Duration.zero,
-      () => Navigator.pushReplacementNamed(context, XRoute.home)
-    );
+    context.read<AccountManager>().initialize().then((value) {
+      Navigator.pushReplacementNamed(
+        context,
+        value.isRegisterAdmin() ? XRoute.register : XRoute.login
+      );
+    });
   }
 
   @override

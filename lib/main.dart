@@ -16,13 +16,15 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:flutter_polarbear/data/account_manager.dart';
 import 'package:flutter_polarbear/page/home/home_page.dart';
 import 'package:flutter_polarbear/page/login/login_page.dart';
 import 'package:flutter_polarbear/page/register/register_page.dart';
 import 'package:flutter_polarbear/page/splash/splash_page.dart';
 import 'package:flutter_polarbear/route.dart';
 import 'package:flutter_polarbear/theme/theme.dart';
-import 'package:flutter_polarbear/util/log.dart';
+import 'package:flutter_polarbear/util/log_util.dart';
+import 'package:provider/provider.dart';
 
 import 'generated/l10n.dart';
 
@@ -36,25 +38,30 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'PolarBear',
-      theme: XTheme.lightTheme(),
-      debugShowCheckedModeBanner: false,
-      routes: {
-        XRoute.splash: (BuildContext context) => const SplashPage(),
-        XRoute.login: (BuildContext context) => const LoginPage(),
-        XRoute.register: (BuildContext context) => const RegisterPage(),
-        XRoute.home: (BuildContext context) => const HomePage(),
-      },
-      initialRoute: XRoute.splash,
-      localizationsDelegates: const [
-        S.delegate,
-        GlobalMaterialLocalizations.delegate,
-        GlobalCupertinoLocalizations.delegate,
-        GlobalWidgetsLocalizations.delegate
+    return MultiProvider(
+      providers: [
+        Provider(create: (context) => AccountManager()),
       ],
-      supportedLocales: S.delegate.supportedLocales,
-      navigatorObservers: [_MyNavigatorObserver()],
+      child: MaterialApp(
+        title: 'PolarBear',
+        theme: XTheme.lightTheme(),
+        debugShowCheckedModeBanner: false,
+        routes: {
+          XRoute.splash: (BuildContext context) => const SplashPage(),
+          XRoute.login: (BuildContext context) => const LoginPage(),
+          XRoute.register: (BuildContext context) => const RegisterPage(),
+          XRoute.home: (BuildContext context) => const HomePage(),
+        },
+        initialRoute: XRoute.splash,
+        localizationsDelegates: const [
+          S.delegate,
+          GlobalMaterialLocalizations.delegate,
+          GlobalCupertinoLocalizations.delegate,
+          GlobalWidgetsLocalizations.delegate
+        ],
+        supportedLocales: S.delegate.supportedLocales,
+        navigatorObservers: [_MyNavigatorObserver()],
+      ),
     );
   }
 }

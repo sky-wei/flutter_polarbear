@@ -16,7 +16,9 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_polarbear/widget/menu_text_widget.dart';
+import 'package:provider/provider.dart';
 
+import '../../../data/account_manager.dart';
 import '../../../data/item/admin_item.dart';
 import '../../../generated/l10n.dart';
 import '../../../widget/sub_title_widget.dart';
@@ -49,7 +51,17 @@ class ProfilePage extends StatefulWidget {
 
 class _ProfilePageState extends State<ProfilePage> {
 
-  AdminItem? _adminItem;
+  late AccountManager _accountManager;
+  late AdminItem _admin;
+
+
+  @override
+  void initState() {
+    super.initState();
+
+    _accountManager = context.read<AccountManager>();
+    _admin = _accountManager.admin;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -60,7 +72,7 @@ class _ProfilePageState extends State<ProfilePage> {
         const SizedBox(height: 55),
         MenuTextWidget(
           text: S.of(context).name,
-          desc: _adminItem?.name ?? '',
+          desc: _admin.name,
         ),
         const SizedBox(height: 15),
         MenuTextWidget(
@@ -70,7 +82,7 @@ class _ProfilePageState extends State<ProfilePage> {
         const SizedBox(height: 15),
         MenuTextWidget(
           text: S.of(context).desc,
-          desc: _adminItem?.desc ?? '',
+          desc: _admin.desc,
         ),
         const SizedBox(height: 40),
         Align(

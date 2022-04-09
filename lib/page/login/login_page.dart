@@ -15,10 +15,15 @@
  */
 
 import 'package:flutter/material.dart';
-import 'package:flutter_polarbear/util/log.dart';
 import 'package:flutter_polarbear/widget/big_title_widget.dart';
+import 'package:provider/provider.dart';
 
+import '../../data/account_manager.dart';
+import '../../data/item/admin_item.dart';
 import '../../generated/l10n.dart';
+import '../../route.dart';
+import '../../util/error_util.dart';
+import '../../util/message_util.dart';
 import '../../widget/big_button_widget.dart';
 import '../../widget/big_input_widget.dart';
 
@@ -43,7 +48,6 @@ class _LoginPageState extends State<LoginPage> {
       body: Center(
         child: Form(
           key: _formKey,
-          autovalidateMode: AutovalidateMode.onUserInteraction,
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
@@ -70,12 +74,7 @@ class _LoginPageState extends State<LoginPage> {
               ),
               const SizedBox(height: 40),
               BigButtonWidget(
-                onPressed: () {
-                  if ((_formKey.currentState as FormState).validate()) {
-
-                  }
-                  XLog.d('>>>>>>>>>>>>>>>>> ${Navigator.of(context)}');
-                },
+                onPressed: () => _login(),
                 text: S.of(context).login,
               )
             ],
@@ -83,5 +82,28 @@ class _LoginPageState extends State<LoginPage> {
         )
       ),
     );
+  }
+
+  void _login() {
+
+    if (!(_formKey.currentState as FormState).validate()) {
+      return;
+    }
+
+    var name = _nameController.text;
+    var password = _passwordController.text;
+
+    var accountManager = context.read<AccountManager>();
+
+    accountManager.loginByAdmin(
+        accountManager.encryptAdmin(
+          AdminItem(name: name, password: password)
+        )
+    ).then((value) {
+      accountManager.updateInfo(value);
+      Navigator.pushReplacementNamed(context, XRoute.home);
+    }).onError((error, stackTrace) {
+      MessageUtil.showMessage(context, ErrorUtil.getMessage(context, error));
+    });
   }
 }

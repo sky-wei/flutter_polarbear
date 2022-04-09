@@ -16,6 +16,8 @@
 
 class AdminItem {
 
+  static final AdminItem empty = AdminItem(name: '', password: '');
+
   final int id;
   final String name;
   final String password;
@@ -29,5 +31,28 @@ class AdminItem {
    this.desc = '',
    this.createTime = 0
   });
+
+  AdminItem.valueOf(AdminItem item) :
+    id = item.id,
+    name = item.name,
+    password = item.password,
+    desc = item.desc,
+    createTime = item.createTime;
+
+  AdminItem copy({
+    int? id,
+    String? name,
+    String? password,
+    String? desc,
+    int? createTime
+  }) {
+    return AdminItem(
+      id: id ?? this.id,
+      name: name ?? this.name,
+      password: password ?? this.password,
+      desc: desc ?? this.desc,
+      createTime: createTime ?? this.createTime
+    );
+  }
 }
 

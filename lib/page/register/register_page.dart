@@ -15,11 +15,18 @@
  */
 
 import 'package:flutter/material.dart';
+import 'package:flutter_polarbear/data/account_manager.dart';
+import 'package:flutter_polarbear/data/item/admin_item.dart';
+import 'package:flutter_polarbear/route.dart';
+import 'package:flutter_polarbear/util/error_util.dart';
+import 'package:flutter_polarbear/util/message_util.dart';
+import 'package:provider/provider.dart';
 
 import '../../generated/l10n.dart';
 import '../../widget/big_button_widget.dart';
 import '../../widget/big_input_widget.dart';
 import '../../widget/big_title_widget.dart';
+
 
 class RegisterPage extends StatefulWidget {
 
@@ -43,7 +50,6 @@ class _RegisterPageState extends State<RegisterPage> {
       body: Center(
           child: Form(
             key: _formKey,
-            autovalidateMode: AutovalidateMode.onUserInteraction,
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
@@ -65,7 +71,11 @@ class _RegisterPageState extends State<RegisterPage> {
                   labelText: S.of(context).password,
                   obscureText: true,
                   validator: (v) {
-                    return v!.trim().isEmpty ? "密码不能为空!" : null;
+                    if (v!.trim().isEmpty) {
+                      return "密码不能为空!";
+                    } else if (v != _confirmPasswordController.text) {
+                      return "密码输入不一致";
+                    }
                   },
                 ),
                 const SizedBox(height: 20),
@@ -75,16 +85,16 @@ class _RegisterPageState extends State<RegisterPage> {
                   labelText: S.of(context).confirmPassword,
                   obscureText: true,
                   validator: (v) {
-                    return v!.trim().isEmpty ? "确认密码不能为空!" : null;
+                    if (v!.trim().isEmpty) {
+                      return "密码不能为空!";
+                    } else if (v != _confirmPasswordController.text) {
+                      return "密码输入不一致";
+                    }
                   },
                 ),
                 const SizedBox(height: 40),
                 BigButtonWidget(
-                  onPressed: () {
-                    if ((_formKey.currentState as FormState).validate()) {
-
-                    }
-                  },
+                  onPressed: () => _register(),
                   text: S.of(context).register,
                 )
               ],
@@ -92,6 +102,29 @@ class _RegisterPageState extends State<RegisterPage> {
           )
       ),
     );
+  }
+  
+  void _register() {
+
+    if (!(_formKey.currentState as FormState).validate()) {
+      return;
+    }
+
+    var name = _nameController.text;
+    var password = _passwordController.text;
+
+    var accountManager = context.read<AccountManager>();
+
+    accountManager.createAdmin(
+      accountManager.encryptAdmin(
+        AdminItem(name: name, password: password)
+      )
+    ).then((value) {
+      accountManager.updateInfo(value);
+      Navigator.pushReplacementNamed(context, XRoute.home);
+    }).onError((error, stackTrace) {
+      MessageUtil.showMessage(context, ErrorUtil.getMessage(context, error));
+    });
   }
 }
 
