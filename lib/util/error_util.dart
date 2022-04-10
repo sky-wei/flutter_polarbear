@@ -32,6 +32,8 @@ class ErrorUtil {
           return "更新信息错误!";
         case ErrorType.other:
           return "处理异常!";
+        case ErrorType.deleteError:
+          return "删除信息错误!";
       }
     }
     return '处理异常';

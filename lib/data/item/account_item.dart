@@ -55,4 +55,15 @@ class AccountItem {
         createTime: createTime ?? this.createTime
     );
   }
+
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      other is AccountItem &&
+          runtimeType == other.runtimeType &&
+          id == other.id &&
+          adminId == other.adminId;
+
+  @override
+  int get hashCode => id.hashCode ^ adminId.hashCode;
 }

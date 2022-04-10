@@ -63,15 +63,15 @@ class AccountListPage extends StatefulWidget {
 
 class _AccountListPageState extends State<AccountListPage> {
 
+  late AccountManager _accountManager;
   final List<AccountItem> _accountItems = [];
 
   @override
   void initState() {
     super.initState();
-
-    var accountManager = context.read<AccountManager>();
-
-    accountManager.loadByAdmin(accountManager.admin.id).then((value) {
+    
+    _accountManager = context.read<AccountManager>();
+    _accountManager.loadByAdmin(_accountManager.admin).then((value) {
       setState(() {
         _accountItems.clear();
         _accountItems.addAll(value);
@@ -110,21 +110,45 @@ class _AccountListPageState extends State<AccountListPage> {
       itemBuilder: (context, index) {
         return _buildAccountItem(
           _accountItems[index],
-          (item) {
-            Navigator.of(context).push(
-                MaterialPageRoute(
-                    builder: (context) {
-                      return AccountPage(account: item);
-                    }
-                )
-            );
-          }
+          (item) => _handlerAccount(item)
         );
       },
       separatorBuilder: (context, index) {
         return const SizedBox(height: 15);
       },
     );
+  }
+
+  void _handlerAccount(AccountItem item) {
+    Navigator.of(context).push(
+      MaterialPageRoute(
+          builder: (context) {
+            return AccountPage(account: item);
+          }
+      )
+    ).then((value) => {
+      if (value != null) {
+        _handlerResult(value as ActionResult)
+      }
+    });
+  }
+  
+  void _handlerResult(ActionResult result) {
+    switch(result.action) {
+      case AccountAction.delete:
+        _accountManager.deleteAccount(result.item).then((value) {
+          setState(() {
+            _accountItems.remove(value);
+          });
+          MessageUtil.showMessage(context, '删除账号成功！');
+        }).onError((error, stackTrace) {
+          MessageUtil.showMessage(context, ErrorUtil.getMessage(context, error));
+        });
+        break;
+      case AccountAction.update:
+        // TODO: Handle this case.
+        break;
+    }
   }
 
   Widget _buildAccountEmpty(VoidCallback? onPressed) {
@@ -231,4 +255,20 @@ class _AccountListPageState extends State<AccountListPage> {
       ),
     );
   }
+}
+
+class ActionResult {
+
+  final AccountAction action;
+  final AccountItem item;
+
+  ActionResult({
+    required this.action,
+    required this.item
+  });
+}
+
+enum AccountAction {
+  delete,
+  update
 }

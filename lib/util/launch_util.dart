@@ -14,36 +14,29 @@
  * limitations under the License.
  */
 
-class DataException implements Exception {
+import 'package:url_launcher/url_launcher.dart';
 
-  final ErrorType type;
-  final dynamic message;
+import 'log_util.dart';
 
-  DataException({
-    this.type = ErrorType.other,
-    this.message = 'Exception'
-  });
+class LaunchUtil {
 
-  DataException.type({
-    this.type = ErrorType.other
-  }) : message = 'Exception';
+  LaunchUtil._();
 
-  DataException.message([this.message]) : type = ErrorType.other;
-
-  @override
-  String toString() {
-    Object? message = this.message;
-    if (message == null) return "Exception";
-    return "Exception: $message";
+  static void launchUrl(String url) {
+    _launchUrl(
+        url
+    ).then((value) {
+      XLog.d('>>>>>>>>>>>>>>> $value');
+    }).onError((error, stackTrace) {
+      XLog.d('>>>>>>>>>>>>>>> $error');
+    });
   }
-}
 
-enum ErrorType {
-
-  adminExist,
-  nameOrPasswordError,
-  updateError,
-  deleteError,
-  other
+  static Future<bool> _launchUrl(String url) async {
+    if (await canLaunch(url)) {
+      return await launch(url, forceSafariVC: false, forceWebView: false,);
+    }
+    throw 'Could not launch $url';
+  }
 }
 

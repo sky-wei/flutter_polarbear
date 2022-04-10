@@ -45,14 +45,14 @@ class AccountManager extends EasyNotifier {
     return this;
   }
 
-  /// 是否注册管理员账号
-  bool isRegisterAdmin() {
-    return _objectBox.adminBox.isEmpty();
-  }
-
   /// 更新管理员信息
   void updateInfo(AdminItem item) {
     notify(() => admin = item);
+  }
+
+  /// 是否注册管理员账号
+  bool isRegisterAdmin() {
+    return _objectBox.adminBox.isEmpty();
   }
 
   /// 创建账号
@@ -67,7 +67,22 @@ class AccountManager extends EasyNotifier {
       throw DataException.type(type: ErrorType.adminExist);
     }
 
-    return item.copy(id: adminBox.put(AdminMapper.transformItem(item)));
+    var id = adminBox.put(AdminMapper.transformItem(item));
+
+    return item.copy(id: id);
+  }
+
+  /// 更新管理员信息
+  Future<AdminItem> updateAdmin(AdminItem item) async {
+
+    var updateItem = AdminMapper.transformItem(item);
+    var result = adminBox.put(updateItem, mode: PutMode.update);
+
+    if (result <= 0) {
+      throw DataException.type(type: ErrorType.updateError);
+    }
+
+    return item;
   }
 
   /// 登录账号
@@ -88,29 +103,32 @@ class AccountManager extends EasyNotifier {
 
     return AdminMapper.transformEntity(entity);
   }
-  
-  Future<List<AccountItem>> loadByAdmin(int adminId) async {
+
+  /// 登录账号
+  Future<List<AccountItem>> loadByAdmin(AdminItem item) async {
     
     var queryBuilder = accountBox
-      .query(AccountEntity_.adminId.equals(adminId))
-      ..order(AccountEntity_.createTime);
+      .query(AccountEntity_.adminId.equals(item.id))
+      ..order(AccountEntity_.createTime, flags: Order.descending);
     
     return AccountMapper.transformEntities(
         queryBuilder.build().find()
     );
   }
 
+  /// 搜索账号
   Future<List<AccountItem>> searchAccount(int adminId, String keyword) async {
 
     var queryBuilder = accountBox
       .query(AccountEntity_.adminId.equals(adminId).and(AccountEntity_.desc.contains(keyword)))
-      ..order(AccountEntity_.createTime);
+      ..order(AccountEntity_.createTime, flags: Order.descending);
 
     return AccountMapper.transformEntities(
         queryBuilder.build().find()
     );
   }
-  
+
+  /// 清除数据
   Future<bool> clearData(int adminId) async {
     accountBox
         .query(AccountEntity_.adminId.equals(adminId))
@@ -118,22 +136,28 @@ class AccountManager extends EasyNotifier {
         .remove();
     return true;
   }
-  
-  Future<AdminItem> updateAdmin(AdminItem item) async {
-    adminBox.put(AdminMapper.transformItem(item), mode: PutMode.update);
-    return item;
-  }
 
+  /// 创建账号
   Future<AccountItem> createAccount(AccountItem item) async {
     var id = accountBox.put(AccountMapper.transformItem(item));
     return item.copy(id: id);
   }
 
+  /// 更新账号信息
   Future<AccountItem> updateAccount(AccountItem item) async {
-    accountBox.put(AccountMapper.transformItem(item), mode: PutMode.update);
+
+    var result = accountBox.put(
+        AccountMapper.transformItem(item), mode: PutMode.update
+    );
+
+    if (result <= 0) {
+      throw DataException.type(type: ErrorType.updateError);
+    }
+
     return item;
   }
 
+  /// 更新账号信息
   Future<List<AccountItem>> updateByAdmin(AdminItem item, List<AccountItem> items) async {
 
     var entity = adminBox
@@ -151,8 +175,11 @@ class AccountManager extends EasyNotifier {
     return items;
   }
 
+  /// 删除账号
   Future<AccountItem> deleteAccount(AccountItem item) async {
-    accountBox.remove(item.id);
+    if (!accountBox.remove(item.id)) {
+      throw DataException.type(type: ErrorType.deleteError);
+    }
     return item;
   }
 

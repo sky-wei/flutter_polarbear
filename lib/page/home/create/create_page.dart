@@ -147,7 +147,8 @@ class _NewAccountPageState extends State<NewAccountPage> {
           adminId: accountManager.admin.id,
           password: password,
           url: url,
-          desc: desc
+          desc: desc,
+          createTime: DateTime.now().millisecondsSinceEpoch
         )
       )
     ).then((value) {

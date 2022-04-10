@@ -121,7 +121,7 @@ class _RegisterPageState extends State<RegisterPage> {
 
     accountManager.createAdmin(
       accountManager.encryptAdmin(
-        AdminItem(name: name, password: password)
+        AdminItem(name: name, password: password, createTime: DateTime.now().millisecondsSinceEpoch)
       )
     ).then((value) {
       accountManager.updateInfo(value);

@@ -17,7 +17,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_polarbear/data/item/account_item.dart';
 import 'package:flutter_polarbear/page/home/account/edit_page.dart';
+import 'package:flutter_polarbear/page/home/account/list_page.dart';
 import 'package:flutter_polarbear/theme/color.dart';
+import 'package:flutter_polarbear/util/launch_util.dart';
+import 'package:flutter_polarbear/widget/menu_link_widget.dart';
 
 import '../../../generated/l10n.dart';
 import '../../../widget/menu_text_widget.dart';
@@ -64,9 +67,10 @@ class _AccountPageState extends State<AccountPage> {
           desc: widget.account.password,
         ),
         const SizedBox(height: 15),
-        MenuTextWidget(
+        MenuLinkWidget(
           text: S.of(context).url,
           desc: widget.account.url,
+          onHandlePress: (url) => LaunchUtil.launchUrl(url),
         ),
         const SizedBox(height: 15),
         MenuTextWidget(
@@ -80,23 +84,13 @@ class _AccountPageState extends State<AccountPage> {
             mainAxisSize: MainAxisSize.min,
             children: [
               TextButtonWidget(
-                onPressed: () {
-                  Navigator.of(context).push(
-                      MaterialPageRoute(
-                          builder: (context) {
-                            return EditAccountPage(account: widget.account);
-                          }
-                      )
-                  );
-                },
+                onPressed: () => _editAccount(),
                 icon: 'ic_edit.svg',
                 text: S.of(context).edit,
               ),
               const SizedBox(width: 30),
               TextButtonWidget(
-                onPressed: () {
-
-                },
+                onPressed: () => _deleteAccount(),
                 icon: 'ic_delete.svg',
                 text: S.of(context).delete,
                 color: XColor.themeColor,
@@ -105,6 +99,23 @@ class _AccountPageState extends State<AccountPage> {
           )
         )
       ],
+    );
+  }
+
+  /// 删除账号
+  void _deleteAccount() {
+    var result = ActionResult(action: AccountAction.delete, item: widget.account);
+    Navigator.pop(context, result);
+  }
+
+  /// 编辑账号
+  void _editAccount() {
+    Navigator.of(context).push(
+      MaterialPageRoute(
+        builder: (context) {
+          return EditAccountPage(account: widget.account);
+        }
+      )
     );
   }
 }

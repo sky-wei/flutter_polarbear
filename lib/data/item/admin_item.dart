@@ -28,7 +28,7 @@ class AdminItem {
    this.id = 0,
    required this.name,
    required this.password,
-   this.desc = '',
+   this.desc = 'Admin',
    this.createTime = 0
   });
 
@@ -54,5 +54,13 @@ class AdminItem {
       createTime: createTime ?? this.createTime
     );
   }
+
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      other is AdminItem && runtimeType == other.runtimeType && id == other.id;
+
+  @override
+  int get hashCode => id.hashCode;
 }
 

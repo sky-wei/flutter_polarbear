@@ -16,11 +16,12 @@
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_polarbear/constant.dart';
-import 'package:flutter_polarbear/util/log_util.dart';
+import 'package:flutter_polarbear/util/launch_util.dart';
 import 'package:flutter_polarbear/widget/sub_bar_widget.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '../../../generated/l10n.dart';
+import '../../../widget/menu_link_widget.dart';
 import '../../../widget/menu_text_widget.dart';
 
 class AboutPage extends StatelessWidget {
@@ -58,16 +59,10 @@ class AboutPage extends StatelessWidget {
           desc: 'jingcai.wei@163.com',
         ),
         const SizedBox(height: 15),
-        MenuTextWidget(
+        MenuLinkWidget(
           text: S.of(context).source,
           desc: 'https://github.com/sky-wei/flutter_polarbear',
-          onPressed: () {
-            _launchUrl('https://github.com/sky-wei/flutter_polarbear').then((value) {
-              XLog.d('>>>>>>>>>>>>>>> $value');
-            }).onError((error, stackTrace) {
-              XLog.d('>>>>>>>>>>>>>>> $error');
-            });
-          },
+          onHandlePress: (url) => LaunchUtil.launchUrl(url),
         ),
       ],
     );
