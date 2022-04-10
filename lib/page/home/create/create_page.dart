@@ -79,6 +79,7 @@ class _NewAccountPageState extends State<NewAccountPage> {
                 iconName: 'ic_user.svg',
                 labelText: S.of(context).name,
                 autofocus: true,
+                textInputAction: TextInputAction.next,
                 validator: (v) {
                   return v!.trim().isEmpty ? "名称不能为空!" : null;
                 },
@@ -89,6 +90,7 @@ class _NewAccountPageState extends State<NewAccountPage> {
                 iconName: 'ic_password.svg',
                 labelText: S.of(context).password,
                 obscureText: true,
+                textInputAction: TextInputAction.next,
                 validator: (v) {
                   return v!.trim().isEmpty ? "密码不能为空!" : null;
                 },
@@ -98,6 +100,7 @@ class _NewAccountPageState extends State<NewAccountPage> {
                 controller: _urlController,
                 iconName: 'ic_url.svg',
                 labelText: S.of(context).url,
+                textInputAction: TextInputAction.next,
                 validator: (v) {
                   return v!.trim().isEmpty ? "URL不能为空!" : null;
                 },

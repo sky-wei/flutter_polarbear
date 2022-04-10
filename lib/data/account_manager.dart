@@ -19,13 +19,14 @@ import 'package:flutter_polarbear/data/item/admin_item.dart';
 import 'package:flutter_polarbear/data/mapper/account_mapper.dart';
 import 'package:flutter_polarbear/data/mapper/admin_mapper.dart';
 import 'package:flutter_polarbear/data/objectbox.dart';
+import 'package:flutter_polarbear/util/easy_notifier.dart';
 
 import 'data_exception.dart';
 import 'entity/account_entity.dart';
 import 'entity/admin_entity.dart';
 import 'objectbox.g.dart';
 
-class AccountManager {
+class AccountManager extends EasyNotifier {
 
   bool _init = false;
   late ObjectBox _objectBox;
@@ -33,7 +34,6 @@ class AccountManager {
   AdminItem admin = AdminItem.empty;
 
   Box<AdminEntity> get adminBox => _objectBox.adminBox;
-
   Box<AccountEntity> get accountBox => _objectBox.accountBox;
 
   /// 初始化
@@ -52,7 +52,7 @@ class AccountManager {
 
   /// 更新管理员信息
   void updateInfo(AdminItem item) {
-    admin = item;
+    notify(() => admin = item);
   }
 
   /// 创建账号

@@ -72,6 +72,7 @@ class _EditProfilePage extends State<EditProfilePage> {
                 iconName: 'ic_user.svg',
                 labelText: S.of(context).name,
                 autofocus: true,
+                textInputAction: TextInputAction.next,
                 validator: (v) {
                   return v!.trim().isEmpty ? "名称不能为空!" : null;
                 },
@@ -82,6 +83,7 @@ class _EditProfilePage extends State<EditProfilePage> {
                 iconName: 'ic_password.svg',
                 labelText: S.of(context).password,
                 obscureText: true,
+                textInputAction: TextInputAction.next,
                 validator: (v) {
                   return v!.trim().isEmpty ? "密码不能为空!" : null;
                 },
@@ -92,6 +94,7 @@ class _EditProfilePage extends State<EditProfilePage> {
                 iconName: 'ic_password.svg',
                 labelText: S.of(context).newPassword,
                 obscureText: true,
+                textInputAction: TextInputAction.next,
                 validator: (v) {
                   return v!.trim().isEmpty ? "新密码不能为空!" : null;
                 },

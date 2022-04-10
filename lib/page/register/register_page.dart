@@ -60,6 +60,7 @@ class _RegisterPageState extends State<RegisterPage> {
                   iconName: 'ic_user.svg',
                   labelText: S.of(context).name,
                   autofocus: true,
+                  textInputAction: TextInputAction.next,
                   validator: (v) {
                     return v!.trim().isEmpty ? "名称不能为空!" : null;
                   },
@@ -70,6 +71,7 @@ class _RegisterPageState extends State<RegisterPage> {
                   iconName: 'ic_password.svg',
                   labelText: S.of(context).password,
                   obscureText: true,
+                  textInputAction: TextInputAction.next,
                   validator: (v) {
                     if (v!.trim().isEmpty) {
                       return "密码不能为空!";
@@ -84,6 +86,7 @@ class _RegisterPageState extends State<RegisterPage> {
                   iconName: 'ic_password.svg',
                   labelText: S.of(context).confirmPassword,
                   obscureText: true,
+                  textInputAction: TextInputAction.next,
                   validator: (v) {
                     if (v!.trim().isEmpty) {
                       return "密码不能为空!";
@@ -91,6 +94,7 @@ class _RegisterPageState extends State<RegisterPage> {
                       return "密码输入不一致";
                     }
                   },
+                  onFieldSubmitted: (value) => _register(),
                 ),
                 const SizedBox(height: 40),
                 BigButtonWidget(

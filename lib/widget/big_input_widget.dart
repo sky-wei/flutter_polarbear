@@ -28,6 +28,7 @@ class BigInputWidget extends StatelessWidget {
   final TextInputAction? textInputAction;
   final FormFieldValidator<String>? validator;
   final TextInputType keyboardType;
+  final ValueChanged<String>? onFieldSubmitted;
   final int maxLines;
 
   const BigInputWidget({
@@ -40,6 +41,7 @@ class BigInputWidget extends StatelessWidget {
     this.textInputAction,
     this.validator,
     this.keyboardType = TextInputType.text,
+    this.onFieldSubmitted,
     this.maxLines = 1,
   }) : super(key: key);
 
@@ -71,6 +73,7 @@ class BigInputWidget extends StatelessWidget {
         keyboardType: keyboardType,
         maxLines: maxLines,
         validator: validator,
+        onFieldSubmitted: onFieldSubmitted,
       ),
     );
   }

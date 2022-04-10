@@ -16,7 +16,9 @@
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_polarbear/constant.dart';
+import 'package:flutter_polarbear/util/log_util.dart';
 import 'package:flutter_polarbear/widget/sub_bar_widget.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import '../../../generated/l10n.dart';
 import '../../../widget/menu_text_widget.dart';
@@ -59,9 +61,23 @@ class AboutPage extends StatelessWidget {
         MenuTextWidget(
           text: S.of(context).source,
           desc: 'https://github.com/sky-wei/flutter_polarbear',
+          onPressed: () {
+            _launchUrl('https://github.com/sky-wei/flutter_polarbear').then((value) {
+              XLog.d('>>>>>>>>>>>>>>> $value');
+            }).onError((error, stackTrace) {
+              XLog.d('>>>>>>>>>>>>>>> $error');
+            });
+          },
         ),
       ],
     );
+  }
+
+  Future<bool> _launchUrl(String url) async {
+    if (await canLaunch(url)) {
+      return await launch(url, forceSafariVC: false, forceWebView: false,);
+    }
+    throw 'Could not launch $url';
   }
 }
 

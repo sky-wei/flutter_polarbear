@@ -29,14 +29,19 @@ import '../../../widget/big_search_widget.dart';
 
 class NavigatorAccountList extends StatelessWidget {
 
-  const NavigatorAccountList({Key? key}) : super(key: key);
+  final VoidCallback? onNewPressed;
+
+  const NavigatorAccountList({
+    Key? key,
+    this.onNewPressed
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Navigator(
       onGenerateRoute: (settings) {
         return MaterialPageRoute(builder: (context) {
-          return const AccountListPage();
+          return AccountListPage(onNewPressed: onNewPressed);
         });
       },
     );
@@ -45,7 +50,12 @@ class NavigatorAccountList extends StatelessWidget {
 
 class AccountListPage extends StatefulWidget {
 
-  const AccountListPage({Key? key}) : super(key: key);
+  final VoidCallback? onNewPressed;
+
+  const AccountListPage({
+    Key? key,
+    this.onNewPressed
+  }) : super(key: key);
 
   @override
   State<StatefulWidget> createState() => _AccountListPageState();
@@ -90,6 +100,11 @@ class _AccountListPageState extends State<AccountListPage> {
   }
 
   Widget _buildAccountList() {
+
+    if (_accountItems.isEmpty) {
+      return _buildAccountEmpty(widget.onNewPressed);
+    }
+
     return ListView.separated(
       itemCount: _accountItems.length,
       itemBuilder: (context, index) {
@@ -109,6 +124,46 @@ class _AccountListPageState extends State<AccountListPage> {
       separatorBuilder: (context, index) {
         return const SizedBox(height: 15);
       },
+    );
+  }
+
+  Widget _buildAccountEmpty(VoidCallback? onPressed) {
+    return Center(
+      child: Material(
+        child: Ink(
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(6),
+          ),
+          child: InkWell(
+            borderRadius: BorderRadius.circular(6),
+            onTap: onPressed,
+            child: Padding(
+              padding: const EdgeInsets.only(
+                  left: 28, top: 24, right: 28, bottom: 24
+              ),
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  SvgPicture.asset(
+                      'assets/svg/ic_empty.svg',
+                      color: XColor.black,
+                      width: 58,
+                      height: 58
+                  ),
+                  const SizedBox(height: 20),
+                  Text(
+                    S.of(context).newAccount,
+                    style: const TextStyle(
+                        fontSize: 16,
+                        color: XColor.black
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ),
+      ),
     );
   }
 

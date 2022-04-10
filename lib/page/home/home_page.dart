@@ -64,18 +64,14 @@ class _HomePageState extends State<HomePage> {
       ],
       currentIndex: _currentIndex,
       body: _pageAtIndex(_currentIndex),
-      onNavigationIndexChange: (index) {
-        setState(() {
-          _currentIndex = index;
-        });
-      },
+      onNavigationIndexChange: (index) => _setCurrentIndex(index),
     );
   }
 
   Widget _pageAtIndex(int index) {
     switch(index) {
       case 0:
-        return const NavigatorAccountList();
+        return NavigatorAccountList(onNewPressed: () => _setCurrentIndex(2));
       case 1:
         return const NavigatorProfile();
       case 2:
@@ -87,6 +83,12 @@ class _HomePageState extends State<HomePage> {
           child: Text("Index: $index"),
         );
     }
+  }
+
+  void _setCurrentIndex(int index) {
+    setState(() {
+      _currentIndex = index;
+    });
   }
 }
 
