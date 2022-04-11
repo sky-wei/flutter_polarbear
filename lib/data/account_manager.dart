@@ -19,6 +19,7 @@ import 'package:flutter_polarbear/data/item/admin_item.dart';
 import 'package:flutter_polarbear/data/mapper/account_mapper.dart';
 import 'package:flutter_polarbear/data/mapper/admin_mapper.dart';
 import 'package:flutter_polarbear/data/objectbox.dart';
+import 'package:flutter_polarbear/util/secret_util.dart';
 
 import 'data_exception.dart';
 import 'entity/account_entity.dart';
@@ -88,10 +89,12 @@ class AccountManager {
   }
 
   /// 搜索账号
-  Future<List<AccountItem>> searchAccount(int adminId, String keyword) async {
+  Future<List<AccountItem>> searchAccount(AdminItem admin, String keyword) async {
 
     var queryBuilder = accountBox
-      .query(AccountEntity_.adminId.equals(adminId).and(AccountEntity_.desc.contains(keyword)))
+      .query(AccountEntity_.adminId.equals(admin.id).andAll(
+        [AccountEntity_.desc.contains(keyword).or(AccountEntity_.url.contains(keyword))]
+      ))
       ..order(AccountEntity_.createTime, flags: Order.descending);
 
     return AccountMapper.transformEntities(
@@ -119,10 +122,10 @@ class AccountManager {
   }
 
   /// 更新账号信息
-  Future<List<AccountItem>> updateByAdmin(AdminItem item, List<AccountItem> items) async {
+  Future<bool> updateByAdmin(AdminItem item, List<AccountItem> items) async {
 
     var entity = adminBox
-      .query(AdminEntity_.name.equals(item.name))
+      .query(AdminEntity_.id.equals(item.id))
       .build()
       .findFirst();
     
@@ -135,8 +138,7 @@ class AccountManager {
     for (var element in items) {
       await updateAccount(element);
     }
-    
-    return items;
+    return true;
   }
 
   /// 删除账号
@@ -156,20 +158,26 @@ class AccountManager {
     return true;
   }
 
+  /// 清除所有数据
+  Future<bool> clearAllData() async {
+    adminBox.removeAll();
+    accountBox.removeAll();
+    return true;
+  }
+
+  /// 加密管理员的密码
   AdminItem encryptAdmin(AdminItem item) {
-    return item;
+    return item.copy(password: SecretUtil.md5sum(item.password));
   }
 
-  AdminItem decryptAdmin(AdminItem item) {
-    return item;
+  /// 加密账号信息
+  AccountItem encryptAccount(AdminItem admin, AccountItem account) {
+    return account.copy(password: SecretUtil.encrypt(admin.password, account.password));
   }
 
-  AccountItem encryptAccount(AccountItem item) {
-    return item;
-  }
-
-  AccountItem decryptAccount(AccountItem item) {
-    return item;
+  /// 解密账号信息
+  AccountItem decryptAccount(AdminItem admin, AccountItem account) {
+    return account.copy(password: SecretUtil.decrypt(admin.password, account.password));
   }
 
   /// 更新管理员信息

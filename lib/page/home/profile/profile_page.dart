@@ -15,6 +15,7 @@
  */
 
 import 'package:flutter/material.dart';
+import 'package:flutter_polarbear/data/item/admin_item.dart';
 import 'package:flutter_polarbear/model/app_model.dart';
 import 'package:flutter_polarbear/widget/menu_text_widget.dart';
 import 'package:provider/provider.dart';
@@ -51,11 +52,20 @@ class ProfilePage extends StatefulWidget {
 class _ProfilePageState extends State<ProfilePage> {
 
   late AppModel _appModel;
+  late AdminItem _admin;
 
   @override
   void initState() {
     super.initState();
     _appModel = context.read<AppModel>();
+    _admin = _appModel.admin;
+    _appModel.addListener(_infoChange);
+  }
+  
+  @override
+  void dispose() {
+    _appModel.removeListener(_infoChange);
+    super.dispose();
   }
 
   @override
@@ -67,7 +77,7 @@ class _ProfilePageState extends State<ProfilePage> {
         const SizedBox(height: 55),
         MenuTextWidget(
           text: S.of(context).name,
-          desc: _appModel.admin.name,
+          desc: _admin.name,
         ),
         const SizedBox(height: 15),
         MenuTextWidget(
@@ -77,26 +87,36 @@ class _ProfilePageState extends State<ProfilePage> {
         const SizedBox(height: 15),
         MenuTextWidget(
           text: S.of(context).desc,
-          desc: _appModel.admin.desc,
+          desc: _admin.desc,
         ),
         const SizedBox(height: 40),
         Align(
           alignment: Alignment.centerRight,
           child: TextButtonWidget(
-            onPressed: () {
-              Navigator.of(context).push(
-                MaterialPageRoute(
-                  builder: (context) {
-                    return const EditProfilePage();
-                  }
-                )
-              );
-            },
+            onPressed: () => _editAdmin(),
             icon: 'ic_edit.svg',
             text: S.of(context).edit,
           ),
         )
       ],
     );
+  }
+
+  /// 编辑信息
+  void _editAdmin() {
+    Navigator.of(context).push(
+      MaterialPageRoute(
+        builder: (context) {
+          return EditProfilePage(admin: _admin);
+        }
+      )
+    );
+  }
+
+  /// 信息修改
+  void _infoChange() {
+    setState(() {
+      _admin = _appModel.admin;
+    });
   }
 }

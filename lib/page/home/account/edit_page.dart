@@ -16,11 +16,14 @@
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_polarbear/data/item/account_item.dart';
+import 'package:provider/provider.dart';
 
 import '../../../generated/l10n.dart';
+import '../../../model/app_model.dart';
 import '../../../widget/big_button_widget.dart';
 import '../../../widget/big_input_widget.dart';
 import '../../../widget/sub_bar_widget.dart';
+import 'list_page.dart';
 
 class EditAccountPage extends StatefulWidget {
 
@@ -127,16 +130,36 @@ class _EditAccountPage extends State<EditAccountPage> {
               ),
               const SizedBox(height: 40),
               BigButtonWidget(
-                onPressed: () {
-                  if ((_formKey.currentState as FormState).validate()) {
-
-                  }
-                },
+                onPressed: () => _changeAccount(),
                 text: S.of(context).change,
               )
             ],
           ),
         )
     );
+  }
+
+  /// 修改账号
+  void _changeAccount() {
+
+    if (!(_formKey.currentState as FormState).validate()) {
+      return;
+    }
+
+    var name = _nameController.text;
+    var password = _passwordController.text;
+    var url = _urlController.text;
+    var desc = _descController.text;
+
+    var result = ActionResult(
+      action: AccountAction.update,
+      item: widget.account.copy(
+        name: name,
+        password: password,
+        url: url,
+        desc: desc
+      )
+    );
+    Navigator.pop(context, result);
   }
 }

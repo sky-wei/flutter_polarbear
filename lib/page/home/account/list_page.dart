@@ -70,15 +70,7 @@ class _AccountListPageState extends State<AccountListPage> {
   void initState() {
     super.initState();
     _appModel = context.read<AppModel>();
-    _appModel.loadAccountList(
-    ).then((value) {
-      setState(() {
-        _accountItems.clear();
-        _accountItems.addAll(value);
-      });
-    }).onError((error, stackTrace) {
-      MessageUtil.showMessage(context, ErrorUtil.getMessage(context, error));
-    });
+    _loadAccountList();
   }
 
   @override
@@ -90,6 +82,7 @@ class _AccountListPageState extends State<AccountListPage> {
           iconName: 'ic_search.svg',
           labelText: S.of(context).search,
           textInputAction: TextInputAction.done,
+          onChanged: (keyword) => _searchAccount(keyword),
         ),
         const SizedBox(height: 30),
         Expanded(
@@ -122,9 +115,9 @@ class _AccountListPageState extends State<AccountListPage> {
   void _handlerAccount(AccountItem item) {
     Navigator.of(context).push(
       MaterialPageRoute(
-          builder: (context) {
-            return AccountPage(account: item);
-          }
+        builder: (context) {
+          return AccountPage(account: _appModel.decryptAccount(item));
+        }
       )
     ).then((value) => {
       if (value != null) {
@@ -137,7 +130,7 @@ class _AccountListPageState extends State<AccountListPage> {
     switch(result.action) {
       case AccountAction.delete:
         _appModel.deleteAccount(
-            result.item
+          result.item
         ).then((value) {
           setState(() {
             _accountItems.remove(value);
@@ -148,7 +141,20 @@ class _AccountListPageState extends State<AccountListPage> {
         });
         break;
       case AccountAction.update:
-        // TODO: Handle this case.
+        _appModel.updateAccount(
+          result.item
+        ).then((value) {
+          setState(() {
+            var index = _accountItems.indexOf(value);
+            if (index >= 0) {
+              _accountItems.removeAt(index);
+              _accountItems.insert(index, value);
+            }
+          });
+          MessageUtil.showMessage(context, '修改账号成功！');
+        }).onError((error, stackTrace) {
+          MessageUtil.showMessage(context, ErrorUtil.getMessage(context, error));
+        });
         break;
     }
   }
@@ -256,6 +262,39 @@ class _AccountListPageState extends State<AccountListPage> {
         ),
       ),
     );
+  }
+
+  /// 加载账号列表
+  void _loadAccountList() {
+    _appModel.loadAccountList(
+    ).then((value) {
+      setState(() {
+        _accountItems.clear();
+        _accountItems.addAll(value);
+      });
+    }).onError((error, stackTrace) {
+      MessageUtil.showMessage(context, ErrorUtil.getMessage(context, error));
+    });
+  }
+
+  /// 搜索账号
+  void _searchAccount(String keyword) {
+
+    if (keyword.isEmpty) {
+      _loadAccountList();
+      return;
+    }
+
+    _appModel.searchAccount(
+      keyword
+    ).then((value) {
+      setState(() {
+        _accountItems.clear();
+        _accountItems.addAll(value);
+      });
+    }).onError((error, stackTrace) {
+      MessageUtil.showMessage(context, ErrorUtil.getMessage(context, error));
+    });
   }
 }
 

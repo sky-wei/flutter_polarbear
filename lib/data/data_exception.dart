@@ -44,6 +44,7 @@ enum ErrorType {
   nameOrPasswordError,
   updateError,
   deleteError,
+  passwordError,
   other
 }
 

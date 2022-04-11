@@ -34,6 +34,8 @@ class ErrorUtil {
           return "处理异常!";
         case ErrorType.deleteError:
           return "删除信息错误!";
+        case ErrorType.passwordError:
+          return "密码错误!";
       }
     }
     return '处理异常';

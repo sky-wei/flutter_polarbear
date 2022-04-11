@@ -104,7 +104,9 @@ class _AccountPageState extends State<AccountPage> {
 
   /// 删除账号
   void _deleteAccount() {
-    var result = ActionResult(action: AccountAction.delete, item: widget.account);
+    var result = ActionResult(
+        action: AccountAction.delete, item: widget.account
+    );
     Navigator.pop(context, result);
   }
 
@@ -116,6 +118,8 @@ class _AccountPageState extends State<AccountPage> {
           return EditAccountPage(account: widget.account);
         }
       )
-    );
+    ).then((value) {
+      Navigator.pop(context, value);
+    });
   }
 }

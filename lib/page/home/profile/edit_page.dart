@@ -15,15 +15,25 @@
  */
 
 import 'package:flutter/cupertino.dart';
+import 'package:flutter_polarbear/data/item/admin_item.dart';
+import 'package:provider/provider.dart';
 
 import '../../../generated/l10n.dart';
+import '../../../model/app_model.dart';
+import '../../../util/error_util.dart';
+import '../../../util/message_util.dart';
 import '../../../widget/big_button_widget.dart';
 import '../../../widget/big_input_widget.dart';
 import '../../../widget/sub_bar_widget.dart';
 
 class EditProfilePage extends StatefulWidget {
 
-  const EditProfilePage({Key? key}) : super(key: key);
+  final AdminItem admin;
+
+  const EditProfilePage({
+    Key? key,
+    required this.admin,
+  }) : super(key: key);
 
   @override
   State<StatefulWidget> createState() => _EditProfilePage();
@@ -37,6 +47,13 @@ class _EditProfilePage extends State<EditProfilePage> {
   final TextEditingController _newPasswordController = TextEditingController();
 
   final GlobalKey _formKey = GlobalKey<FormState>();
+
+  @override
+  void initState() {
+    super.initState();
+    _nameController.text = widget.admin.name;
+    _descController.text = widget.admin.desc;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -112,16 +129,38 @@ class _EditProfilePage extends State<EditProfilePage> {
               ),
               const SizedBox(height: 40),
               BigButtonWidget(
-                onPressed: () {
-                  if ((_formKey.currentState as FormState).validate()) {
-
-                  }
-                },
+                onPressed: () => _changeAdmin(),
                 text: S.of(context).change,
               )
             ],
           ),
         )
     );
+  }
+
+  /// 修改管理员信息
+  void _changeAdmin() {
+
+    if (!(_formKey.currentState as FormState).validate()) {
+      return;
+    }
+
+    var name = _nameController.text;
+    var password = _passwordController.text;
+    var newPassword = _newPasswordController.text;
+    var desc = _descController.text;
+
+    var appModel = context.read<AppModel>();
+
+    appModel.updateAdmin(
+      name: name,
+      password: password,
+      newPassword: newPassword,
+      desc: desc
+    ).then((value) {
+      Navigator.pop(context, true);
+    }).onError((error, stackTrace) {
+      MessageUtil.showMessage(context, ErrorUtil.getMessage(context, error));
+    });
   }
 }

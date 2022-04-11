@@ -15,6 +15,7 @@
  */
 
 import 'package:flutter/material.dart';
+import 'package:flutter_polarbear/data/data_exception.dart';
 import 'package:flutter_polarbear/util/easy_notifier.dart';
 
 import '../data/account_manager.dart';
@@ -32,11 +33,11 @@ class AppModel extends AbstractModel {
   late AccountManager _accountManager;
 
   AdminItem _admin = AdminItem.empty;
-  List<AccountItem> _accountList = [];
+  // List<AccountItem> _accountList = [];
 
   // 获取管理员信息
   AdminItem get admin => _admin;
-  List<AccountItem> get accountList => _accountList;
+  // List<AccountItem> get accountList => _accountList;
 
   AppModel({ required this.context });
 
@@ -70,23 +71,38 @@ class AppModel extends AbstractModel {
       )
     );
 
-    _updateAdmin(await _accountManager.createAdmin(item));
+    var admin = await _accountManager.createAdmin(item);
 
-    return _admin;
+    return _updateAdmin(admin.copy(password: password));
   }
 
-  // /// 更新管理员信息
-  // Future<AdminItem> updateAdmin(AdminItem item) async {
-  //
-  //   var updateItem = AdminMapper.transformItem(item);
-  //   var result = adminBox.put(updateItem, mode: PutMode.update);
-  //
-  //   if (result <= 0) {
-  //     throw DataException.type(type: ErrorType.updateError);
-  //   }
-  //
-  //   return item;
-  // }
+  /// 更新管理员信息
+  Future<AdminItem> updateAdmin({
+    required String name,
+    required String password,
+    required String newPassword,
+    required String desc,
+  }) async {
+
+    if (password != _admin.password) {
+      throw DataException.type(type: ErrorType.passwordError);
+    }
+
+    // 先解密账号
+    List<AccountItem> list = await _accountManager.loadByAdmin(_admin);
+    list = list.map((item) => _accountManager.decryptAccount(_admin, item)).toList();
+
+    // 新的管理信息
+    var newAdmin = _admin.copy(name: name, password: newPassword, desc: desc);
+
+    // 加密账号
+    list = list.map((item) => _accountManager.encryptAccount(newAdmin, item)).toList();
+
+    // 更新信息
+    await _accountManager.updateByAdmin(_accountManager.encryptAdmin(newAdmin), list);
+
+    return _updateAdmin(newAdmin);
+  }
 
   /// 登录账号
   Future<AdminItem> loginByAdmin({
@@ -98,27 +114,29 @@ class AppModel extends AbstractModel {
         AdminItem(name: name, password: password)
     );
 
-    _updateAdmin(await _accountManager.loginByAdmin(item));
+    var admin = await _accountManager.loginByAdmin(item);
 
-    return _admin;
+    return _updateAdmin(admin.copy(password: password));
   }
 
   /// 登录账号
   Future<List<AccountItem>> loadAccountList() async {
-
-    _updateAccountList(await _accountManager.loadByAdmin(_admin));
-
-    return _accountList;
+    return await _accountManager.loadByAdmin(_admin);
   }
 
   /// 搜索账号
   Future<List<AccountItem>> searchAccount(String keyword) async {
-    return [];
+    return await _accountManager.searchAccount(_admin, keyword);
   }
 
   /// 清除数据
   Future<bool> clearData() async {
     return await _accountManager.clearData(_admin);
+  }
+
+  /// 清除所有数据
+  Future<bool> clearAllData() async {
+    return await _accountManager.clearAllData();
   }
 
   /// 创建账号
@@ -128,6 +146,7 @@ class AppModel extends AbstractModel {
   }) async {
 
     var item = _accountManager.encryptAccount(
+      _admin,
       AccountItem(
         name: name,
         adminId: admin.id,
@@ -143,25 +162,33 @@ class AppModel extends AbstractModel {
 
   /// 更新账号信息
   Future<AccountItem> updateAccount(AccountItem item) async {
-    return item;
+    return _accountManager.updateAccount(
+      _accountManager.encryptAccount(_admin, item)
+    );
   }
 
   /// 删除账号
   Future<AccountItem> deleteAccount(AccountItem item) async {
-    return item;
+    return _accountManager.deleteAccount(item);
+  }
+
+  /// 解密账号
+  AccountItem decryptAccount(AccountItem account) {
+    return _accountManager.decryptAccount(_admin, account);
   }
 
   /// 更新管理员信息
-  void _updateAdmin(AdminItem item) {
+  AdminItem _updateAdmin(AdminItem item) {
     notify(() => _admin = item);
+    return item;
   }
 
-  /// 更新列表信息
-  void _updateAccountList(List<AccountItem> items) {
-    notify(() {
-      _accountList.clear();
-      _accountList.addAll(items);
-    });
-  }
+  // /// 更新列表信息
+  // void _updateAccountList(List<AccountItem> items) {
+  //   notify(() {
+  //     _accountList.clear();
+  //     _accountList.addAll(items);
+  //   });
+  // }
 }
 

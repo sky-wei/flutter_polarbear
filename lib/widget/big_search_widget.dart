@@ -27,6 +27,7 @@ class BigSearchWidget extends StatelessWidget {
   final bool autofocus;
   final TextInputAction? textInputAction;
   final TextInputType keyboardType;
+  final ValueChanged<String>? onChanged;
 
   const BigSearchWidget({
     Key? key,
@@ -36,6 +37,7 @@ class BigSearchWidget extends StatelessWidget {
     this.autofocus = false,
     this.textInputAction,
     this.keyboardType = TextInputType.text,
+    this.onChanged,
   }) : super(key: key);
 
   @override
@@ -46,23 +48,24 @@ class BigSearchWidget extends StatelessWidget {
         controller: controller,
         autofocus: autofocus,
         decoration: InputDecoration(
-            prefixIcon: Padding(
-              padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
-              child: SvgPicture.asset(
-                'assets/svg/$iconName',
-                color: XColor.black,
-                width: 30,
-                height: 30,
-              ),
+          prefixIcon: Padding(
+            padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
+            child: SvgPicture.asset(
+              'assets/svg/$iconName',
+              color: XColor.black,
+              width: 30,
+              height: 30,
             ),
-            labelText: labelText,
-            border: const OutlineInputBorder(
-                borderRadius: BorderRadius.all(Radius.circular(6))
-            ),
-            contentPadding: const EdgeInsets.symmetric(vertical: 23)
+          ),
+          labelText: labelText,
+          border: const OutlineInputBorder(
+              borderRadius: BorderRadius.all(Radius.circular(6))
+          ),
+          contentPadding: const EdgeInsets.symmetric(vertical: 23)
         ),
         textInputAction: textInputAction,
         keyboardType: keyboardType,
+        onChanged: onChanged,
       ),
     );
   }
