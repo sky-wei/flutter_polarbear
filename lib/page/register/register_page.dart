@@ -15,8 +15,7 @@
  */
 
 import 'package:flutter/material.dart';
-import 'package:flutter_polarbear/data/account_manager.dart';
-import 'package:flutter_polarbear/data/item/admin_item.dart';
+import 'package:flutter_polarbear/model/app_model.dart';
 import 'package:flutter_polarbear/route.dart';
 import 'package:flutter_polarbear/util/error_util.dart';
 import 'package:flutter_polarbear/util/message_util.dart';
@@ -117,14 +116,11 @@ class _RegisterPageState extends State<RegisterPage> {
     var name = _nameController.text;
     var password = _passwordController.text;
 
-    var accountManager = context.read<AccountManager>();
+    var appModel = context.read<AppModel>();
 
-    accountManager.createAdmin(
-      accountManager.encryptAdmin(
-        AdminItem(name: name, password: password, createTime: DateTime.now().millisecondsSinceEpoch)
-      )
+    appModel.createAdmin(
+      name: name, password: password
     ).then((value) {
-      accountManager.updateInfo(value);
       Navigator.pushReplacementNamed(context, XRoute.home);
     }).onError((error, stackTrace) {
       MessageUtil.showMessage(context, ErrorUtil.getMessage(context, error));

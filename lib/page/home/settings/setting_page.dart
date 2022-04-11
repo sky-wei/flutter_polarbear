@@ -15,7 +15,7 @@
  */
 
 import 'package:flutter/material.dart';
-import 'package:flutter_polarbear/data/account_manager.dart';
+import 'package:flutter_polarbear/model/app_model.dart';
 import 'package:flutter_polarbear/page/home/settings/about_page.dart';
 import 'package:flutter_polarbear/widget/menu_more_widget.dart';
 import 'package:flutter_polarbear/widget/sort_title_widget.dart';
@@ -51,12 +51,12 @@ class SettingPage extends StatefulWidget {
 
 class _SettingPageState extends State<SettingPage> {
 
-  late AccountManager _accountManager;
+  late AppModel _appModel;
 
   @override
   void initState() {
     super.initState();
-    _accountManager = context.read<AccountManager>();
+    _appModel = context.read<AppModel>();
   }
 
   @override
@@ -112,9 +112,7 @@ class _SettingPageState extends State<SettingPage> {
 
   /// 清除数据
   void _clearData() {
-
-    _accountManager.clearData(
-        _accountManager.admin.id
+    _appModel.clearData(
     ).then((value) {
       MessageUtil.showMessage(context, '清除数据完成！');
     }).onError((error, stackTrace) {

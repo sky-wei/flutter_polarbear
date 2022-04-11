@@ -15,11 +15,10 @@
  */
 
 import 'package:flutter/material.dart';
+import 'package:flutter_polarbear/model/app_model.dart';
 import 'package:flutter_polarbear/widget/big_title_widget.dart';
 import 'package:provider/provider.dart';
 
-import '../../data/account_manager.dart';
-import '../../data/item/admin_item.dart';
 import '../../generated/l10n.dart';
 import '../../route.dart';
 import '../../util/error_util.dart';
@@ -96,14 +95,11 @@ class _LoginPageState extends State<LoginPage> {
     var name = _nameController.text;
     var password = _passwordController.text;
 
-    var accountManager = context.read<AccountManager>();
+    var appModel = context.read<AppModel>();
 
-    accountManager.loginByAdmin(
-        accountManager.encryptAdmin(
-          AdminItem(name: name, password: password)
-        )
+    appModel.loginByAdmin(
+      name: name, password: password
     ).then((value) {
-      accountManager.updateInfo(value);
       Navigator.pushReplacementNamed(context, XRoute.home);
     }).onError((error, stackTrace) {
       MessageUtil.showMessage(context, ErrorUtil.getMessage(context, error));

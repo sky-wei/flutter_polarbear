@@ -16,11 +16,11 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_polarbear/data/item/account_item.dart';
+import 'package:flutter_polarbear/model/app_model.dart';
 import 'package:flutter_polarbear/page/home/account/account_page.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:provider/provider.dart';
 
-import '../../../data/account_manager.dart';
 import '../../../generated/l10n.dart';
 import '../../../theme/color.dart';
 import '../../../util/error_util.dart';
@@ -63,15 +63,15 @@ class AccountListPage extends StatefulWidget {
 
 class _AccountListPageState extends State<AccountListPage> {
 
-  late AccountManager _accountManager;
+  late AppModel _appModel;
   final List<AccountItem> _accountItems = [];
 
   @override
   void initState() {
     super.initState();
-    
-    _accountManager = context.read<AccountManager>();
-    _accountManager.loadByAdmin(_accountManager.admin).then((value) {
+    _appModel = context.read<AppModel>();
+    _appModel.loadAccountList(
+    ).then((value) {
       setState(() {
         _accountItems.clear();
         _accountItems.addAll(value);
@@ -136,7 +136,9 @@ class _AccountListPageState extends State<AccountListPage> {
   void _handlerResult(ActionResult result) {
     switch(result.action) {
       case AccountAction.delete:
-        _accountManager.deleteAccount(result.item).then((value) {
+        _appModel.deleteAccount(
+            result.item
+        ).then((value) {
           setState(() {
             _accountItems.remove(value);
           });

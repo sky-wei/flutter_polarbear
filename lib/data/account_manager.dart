@@ -19,40 +19,24 @@ import 'package:flutter_polarbear/data/item/admin_item.dart';
 import 'package:flutter_polarbear/data/mapper/account_mapper.dart';
 import 'package:flutter_polarbear/data/mapper/admin_mapper.dart';
 import 'package:flutter_polarbear/data/objectbox.dart';
-import 'package:flutter_polarbear/util/easy_notifier.dart';
 
 import 'data_exception.dart';
 import 'entity/account_entity.dart';
 import 'entity/admin_entity.dart';
 import 'objectbox.g.dart';
 
-class AccountManager extends EasyNotifier {
+class AccountManager {
 
-  bool _init = false;
-  late ObjectBox _objectBox;
+  final ObjectBox objectBox;
 
-  AdminItem admin = AdminItem.empty;
+  Box<AdminEntity> get adminBox => objectBox.adminBox;
+  Box<AccountEntity> get accountBox => objectBox.accountBox;
 
-  Box<AdminEntity> get adminBox => _objectBox.adminBox;
-  Box<AccountEntity> get accountBox => _objectBox.accountBox;
-
-  /// 初始化
-  Future<AccountManager> initialize() async {
-    if (!_init) {
-      _init = true;
-      _objectBox = await ObjectBox.create();
-    }
-    return this;
-  }
-
-  /// 更新管理员信息
-  void updateInfo(AdminItem item) {
-    notify(() => admin = item);
-  }
+  AccountManager({ required this.objectBox });
 
   /// 是否注册管理员账号
   bool isRegisterAdmin() {
-    return _objectBox.adminBox.isEmpty();
+    return adminBox.isEmpty();
   }
 
   /// 创建账号
@@ -70,19 +54,6 @@ class AccountManager extends EasyNotifier {
     var id = adminBox.put(AdminMapper.transformItem(item));
 
     return item.copy(id: id);
-  }
-
-  /// 更新管理员信息
-  Future<AdminItem> updateAdmin(AdminItem item) async {
-
-    var updateItem = AdminMapper.transformItem(item);
-    var result = adminBox.put(updateItem, mode: PutMode.update);
-
-    if (result <= 0) {
-      throw DataException.type(type: ErrorType.updateError);
-    }
-
-    return item;
   }
 
   /// 登录账号
@@ -128,15 +99,6 @@ class AccountManager extends EasyNotifier {
     );
   }
 
-  /// 清除数据
-  Future<bool> clearData(int adminId) async {
-    accountBox
-        .query(AccountEntity_.adminId.equals(adminId))
-        .build()
-        .remove();
-    return true;
-  }
-
   /// 创建账号
   Future<AccountItem> createAccount(AccountItem item) async {
     var id = accountBox.put(AccountMapper.transformItem(item));
@@ -153,7 +115,6 @@ class AccountManager extends EasyNotifier {
     if (result <= 0) {
       throw DataException.type(type: ErrorType.updateError);
     }
-
     return item;
   }
 
@@ -166,11 +127,14 @@ class AccountManager extends EasyNotifier {
       .findFirst();
     
     if (entity == null) {
-      throw DataException.type(type: ErrorType.other);
+      throw DataException.type(type: ErrorType.updateError);
     }
     
-    updateAdmin(item);
-    for (var element in items) { updateAccount(element); }
+    await _updateAdmin(item);
+
+    for (var element in items) {
+      await updateAccount(element);
+    }
     
     return items;
   }
@@ -181,6 +145,15 @@ class AccountManager extends EasyNotifier {
       throw DataException.type(type: ErrorType.deleteError);
     }
     return item;
+  }
+
+  /// 清除数据
+  Future<bool> clearData(AdminItem item) async {
+    accountBox
+        .query(AccountEntity_.adminId.equals(item.id))
+        .build()
+        .remove();
+    return true;
   }
 
   AdminItem encryptAdmin(AdminItem item) {
@@ -196,6 +169,19 @@ class AccountManager extends EasyNotifier {
   }
 
   AccountItem decryptAccount(AccountItem item) {
+    return item;
+  }
+
+  /// 更新管理员信息
+  Future<AdminItem> _updateAdmin(AdminItem item) async {
+
+    var updateItem = AdminMapper.transformItem(item);
+    var result = adminBox.put(updateItem, mode: PutMode.update);
+
+    if (result <= 0) {
+      throw DataException.type(type: ErrorType.updateError);
+    }
+
     return item;
   }
 }

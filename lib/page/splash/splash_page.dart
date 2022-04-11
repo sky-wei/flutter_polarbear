@@ -15,7 +15,7 @@
  */
 
 import 'package:flutter/material.dart';
-import 'package:flutter_polarbear/data/account_manager.dart';
+import 'package:flutter_polarbear/model/app_model.dart';
 import 'package:flutter_polarbear/route.dart';
 import 'package:provider/provider.dart';
 
@@ -35,7 +35,7 @@ class _SplashPageState extends State<SplashPage> {
   void initState() {
     super.initState();
 
-    context.read<AccountManager>().initialize().then((value) {
+    context.read<AppModel>().initialize().then((value) {
       Navigator.pushReplacementNamed(
         context,
         value.isRegisterAdmin() ? XRoute.register : XRoute.login

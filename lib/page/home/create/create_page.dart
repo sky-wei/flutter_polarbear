@@ -15,10 +15,9 @@
  */
 
 import 'package:flutter/material.dart';
-import 'package:flutter_polarbear/data/item/account_item.dart';
+import 'package:flutter_polarbear/model/app_model.dart';
 import 'package:provider/provider.dart';
 
-import '../../../data/account_manager.dart';
 import '../../../generated/l10n.dart';
 import '../../../util/error_util.dart';
 import '../../../util/message_util.dart';
@@ -138,19 +137,13 @@ class _NewAccountPageState extends State<NewAccountPage> {
     var url = _urlController.text;
     var desc = _descController.text;
 
-    var accountManager = context.read<AccountManager>();
+    var appModel = context.read<AppModel>();
 
-    accountManager.createAccount(
-      accountManager.encryptAccount(
-        AccountItem(
-          name: name,
-          adminId: accountManager.admin.id,
-          password: password,
-          url: url,
-          desc: desc,
-          createTime: DateTime.now().millisecondsSinceEpoch
-        )
-      )
+    appModel.createAccount(
+      name: name,
+      password: password,
+      url: url,
+      desc: desc
     ).then((value) {
       _clearText();
       MessageUtil.showMessage(context, '添加账号成功！');

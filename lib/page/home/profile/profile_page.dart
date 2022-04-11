@@ -15,11 +15,10 @@
  */
 
 import 'package:flutter/material.dart';
+import 'package:flutter_polarbear/model/app_model.dart';
 import 'package:flutter_polarbear/widget/menu_text_widget.dart';
 import 'package:provider/provider.dart';
 
-import '../../../data/account_manager.dart';
-import '../../../data/item/admin_item.dart';
 import '../../../generated/l10n.dart';
 import '../../../widget/sub_title_widget.dart';
 import '../../../widget/text_button_widget.dart';
@@ -51,16 +50,12 @@ class ProfilePage extends StatefulWidget {
 
 class _ProfilePageState extends State<ProfilePage> {
 
-  late AccountManager _accountManager;
-  late AdminItem _admin;
-
+  late AppModel _appModel;
 
   @override
   void initState() {
     super.initState();
-
-    _accountManager = context.read<AccountManager>();
-    _admin = _accountManager.admin;
+    _appModel = context.read<AppModel>();
   }
 
   @override
@@ -72,7 +67,7 @@ class _ProfilePageState extends State<ProfilePage> {
         const SizedBox(height: 55),
         MenuTextWidget(
           text: S.of(context).name,
-          desc: _admin.name,
+          desc: _appModel.admin.name,
         ),
         const SizedBox(height: 15),
         MenuTextWidget(
@@ -82,7 +77,7 @@ class _ProfilePageState extends State<ProfilePage> {
         const SizedBox(height: 15),
         MenuTextWidget(
           text: S.of(context).desc,
-          desc: _admin.desc,
+          desc: _appModel.admin.desc,
         ),
         const SizedBox(height: 40),
         Align(
