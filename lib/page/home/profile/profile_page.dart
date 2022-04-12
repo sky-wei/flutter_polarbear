@@ -66,7 +66,7 @@ class _ProfilePageState extends State<ProfilePage> with SingleTickerProviderStat
     _appModel.addListener(_infoChange);
 
     _animationController = AnimationController(
-      duration: const Duration(milliseconds: 400),
+      duration: const Duration(milliseconds: 260),
       vsync: this
     );
     _animationController.forward();

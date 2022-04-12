@@ -15,12 +15,14 @@
  */
 
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_polarbear/data/item/account_item.dart';
 import 'package:flutter_polarbear/page/bear_page_route.dart';
 import 'package:flutter_polarbear/page/home/account/edit_page.dart';
 import 'package:flutter_polarbear/page/home/account/list_page.dart';
 import 'package:flutter_polarbear/theme/color.dart';
 import 'package:flutter_polarbear/util/launch_util.dart';
+import 'package:flutter_polarbear/util/message_util.dart';
 import 'package:flutter_polarbear/widget/menu_link_widget.dart';
 
 import '../../../generated/l10n.dart';
@@ -61,11 +63,13 @@ class _AccountPageState extends State<AccountPage> {
         MenuTextWidget(
           text: S.of(context).name,
           desc: widget.account.name,
+          onCopyPress: (value) => _copyToClipboard(value),
         ),
         const SizedBox(height: 15),
         MenuTextWidget(
           text: S.of(context).password,
           desc: widget.account.password,
+          onCopyPress: (value) => _copyToClipboard(value),
         ),
         const SizedBox(height: 15),
         MenuLinkWidget(
@@ -121,6 +125,15 @@ class _AccountPageState extends State<AccountPage> {
       )
     ).then((value) {
       if (value != null) Navigator.pop(context, value);
+    });
+  }
+
+  /// 复制到粘贴板
+  void _copyToClipboard(String value) {
+    Clipboard.setData(
+      ClipboardData(text:value)
+    ).then((value) {
+      MessageUtil.showMessage(context, '已复制当前信息！');
     });
   }
 }

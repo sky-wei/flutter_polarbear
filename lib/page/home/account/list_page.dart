@@ -74,7 +74,7 @@ class _AccountListPageState extends State<AccountListPage> with SingleTickerProv
     super.initState();
     _appModel = context.read<AppModel>();
     _animationController = AnimationController(
-      duration: const Duration(milliseconds: 400),
+      duration: const Duration(milliseconds: 260),
       vsync: this
     );
 

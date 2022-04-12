@@ -59,7 +59,7 @@ class _NewAccountPageState extends State<NewAccountPage> with SingleTickerProvid
   void initState() {
     super.initState();
     _animationController = AnimationController(
-      duration: const Duration(milliseconds: 400),
+      duration: const Duration(milliseconds: 260),
       vsync: this
     );
     _animationController.forward();

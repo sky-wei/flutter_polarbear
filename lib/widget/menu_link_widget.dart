@@ -16,18 +16,21 @@
 
 
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 
 import '../theme/color.dart';
 
 class MenuLinkWidget extends StatelessWidget {
 
   final ValueChanged<String>? onHandlePress;
+  final ValueChanged<String>? onCopyPress;
   final String text;
   final String desc;
 
   const MenuLinkWidget({
     Key? key,
     this.onHandlePress,
+    this.onCopyPress,
     required this.text,
     required this.desc
   }) : super(key: key);
@@ -40,6 +43,7 @@ class MenuLinkWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var right = onCopyPress == null ? 28.0 : 20.0;
     return Material(
       child: Ink(
         decoration: BoxDecoration(
@@ -49,8 +53,8 @@ class MenuLinkWidget extends StatelessWidget {
         child: InkWell(
           borderRadius: BorderRadius.circular(6),
           child: Padding(
-            padding: const EdgeInsets.only(
-                left: 28, top: 24, right: 28, bottom: 24
+            padding: EdgeInsets.only(
+              left: 28, top: 24, right: right, bottom: 24
             ),
             child: Stack(
               alignment: Alignment.centerLeft,
@@ -58,23 +62,38 @@ class MenuLinkWidget extends StatelessWidget {
                 Text(
                   text,
                   style: const TextStyle(
-                      fontSize: 16,
-                      color: XColor.black
+                    fontSize: 16,
+                    color: XColor.black
                   ),
                 ),
                 Align(
                   alignment: Alignment.centerRight,
-                  child: GestureDetector(
-                    child: Text(
-                      desc,
-                      style: const TextStyle(
-                          fontSize: 16,
-                          decoration: TextDecoration.underline,
-                          color: XColor.grayColor
+                  child: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      GestureDetector(
+                        child: Text(
+                          desc,
+                          style: const TextStyle(
+                            fontSize: 16,
+                            decoration: TextDecoration.underline,
+                            color: XColor.grayColor
+                          ),
+                        ),
+                        onTap: _handlePress,
                       ),
-                    ),
-                    onTap: _handlePress,
-                  ),
+                      if (onCopyPress != null)
+                        IconButton(
+                          onPressed: () => onCopyPress!(desc),
+                          icon: SvgPicture.asset(
+                            'assets/svg/ic_copy.svg',
+                            color: XColor.black,
+                            width: 24,
+                            height: 24
+                          ),
+                        )
+                    ],
+                  )
                 ),
               ],
             ),
