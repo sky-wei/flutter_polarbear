@@ -21,6 +21,7 @@ import 'package:provider/provider.dart';
 import '../../../generated/l10n.dart';
 import '../../../util/error_util.dart';
 import '../../../util/message_util.dart';
+import '../../../widget/bear_animate_widget.dart';
 import '../../../widget/big_button_widget.dart';
 import '../../../widget/big_input_widget.dart';
 import '../../../widget/sub_title_widget.dart';
@@ -43,7 +44,7 @@ class NewAccountPage extends StatefulWidget {
   State<StatefulWidget> createState() => _NewAccountPageState();
 }
 
-class _NewAccountPageState extends State<NewAccountPage> {
+class _NewAccountPageState extends State<NewAccountPage> with SingleTickerProviderStateMixin {
 
   final TextEditingController _nameController = TextEditingController();
   final TextEditingController _urlController = TextEditingController();
@@ -52,16 +53,37 @@ class _NewAccountPageState extends State<NewAccountPage> {
 
   final GlobalKey _formKey = GlobalKey<FormState>();
 
+  late AnimationController _animationController;
+
+  @override
+  void initState() {
+    super.initState();
+    _animationController = AnimationController(
+      duration: const Duration(milliseconds: 400),
+      vsync: this
+    );
+    _animationController.forward();
+  }
+
+  @override
+  void dispose() {
+    _animationController.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        const SizedBox(height: 45),
-        SubTitleWidget(title: S.of(context).account),
-        Expanded(
-          child: _buildNewAccount(),
-        )
-      ],
+    return BearAnimateWidget(
+      animation: _animationController,
+      child: Column(
+        children: [
+          const SizedBox(height: 45),
+          SubTitleWidget(title: S.of(context).account),
+          Expanded(
+            child: _buildNewAccount(),
+          )
+        ],
+      ),
     );
   }
 

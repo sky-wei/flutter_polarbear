@@ -18,6 +18,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_polarbear/data/item/admin_item.dart';
 import 'package:flutter_polarbear/model/app_model.dart';
 import 'package:flutter_polarbear/page/bear_page_route.dart';
+import 'package:flutter_polarbear/widget/bear_animate_widget.dart';
 import 'package:flutter_polarbear/widget/menu_text_widget.dart';
 import 'package:provider/provider.dart';
 
@@ -50,10 +51,12 @@ class ProfilePage extends StatefulWidget {
   State<StatefulWidget> createState() => _ProfilePageState();
 }
 
-class _ProfilePageState extends State<ProfilePage> {
+class _ProfilePageState extends State<ProfilePage> with SingleTickerProviderStateMixin {
 
   late AppModel _appModel;
   late AdminItem _admin;
+
+  late AnimationController _animationController;
 
   @override
   void initState() {
@@ -61,45 +64,55 @@ class _ProfilePageState extends State<ProfilePage> {
     _appModel = context.read<AppModel>();
     _admin = _appModel.admin;
     _appModel.addListener(_infoChange);
+
+    _animationController = AnimationController(
+      duration: const Duration(milliseconds: 400),
+      vsync: this
+    );
+    _animationController.forward();
   }
   
   @override
   void dispose() {
+    _animationController.dispose();
     _appModel.removeListener(_infoChange);
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        const SizedBox(height: 45),
-        SubTitleWidget(title: S.of(context).admin),
-        const SizedBox(height: 55),
-        MenuTextWidget(
-          text: S.of(context).name,
-          desc: _admin.name,
-        ),
-        const SizedBox(height: 15),
-        MenuTextWidget(
-          text: S.of(context).password,
-          desc: '******',
-        ),
-        const SizedBox(height: 15),
-        MenuTextWidget(
-          text: S.of(context).desc,
-          desc: _admin.desc,
-        ),
-        const SizedBox(height: 40),
-        Align(
-          alignment: Alignment.centerRight,
-          child: TextButtonWidget(
-            onPressed: () => _editAdmin(),
-            icon: 'ic_edit.svg',
-            text: S.of(context).edit,
+    return BearAnimateWidget(
+      animation: _animationController,
+      child: Column(
+        children: [
+          const SizedBox(height: 45),
+          SubTitleWidget(title: S.of(context).admin),
+          const SizedBox(height: 55),
+          MenuTextWidget(
+            text: S.of(context).name,
+            desc: _admin.name,
           ),
-        )
-      ],
+          const SizedBox(height: 15),
+          MenuTextWidget(
+            text: S.of(context).password,
+            desc: '******',
+          ),
+          const SizedBox(height: 15),
+          MenuTextWidget(
+            text: S.of(context).desc,
+            desc: _admin.desc,
+          ),
+          const SizedBox(height: 40),
+          Align(
+            alignment: Alignment.centerRight,
+            child: TextButtonWidget(
+              onPressed: () => _editAdmin(),
+              icon: 'ic_edit.svg',
+              text: S.of(context).edit,
+            ),
+          )
+        ],
+      ),
     );
   }
 

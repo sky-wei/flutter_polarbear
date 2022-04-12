@@ -19,6 +19,7 @@ import 'package:flutter_polarbear/data/item/account_item.dart';
 import 'package:flutter_polarbear/model/app_model.dart';
 import 'package:flutter_polarbear/page/bear_page_route.dart';
 import 'package:flutter_polarbear/page/home/account/account_page.dart';
+import 'package:flutter_polarbear/widget/bear_animate_widget.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:provider/provider.dart';
 
@@ -62,34 +63,50 @@ class AccountListPage extends StatefulWidget {
   State<StatefulWidget> createState() => _AccountListPageState();
 }
 
-class _AccountListPageState extends State<AccountListPage> {
+class _AccountListPageState extends State<AccountListPage> with SingleTickerProviderStateMixin {
 
   late AppModel _appModel;
   final List<AccountItem> _accountItems = [];
+  late AnimationController _animationController;
 
   @override
   void initState() {
     super.initState();
     _appModel = context.read<AppModel>();
+    _animationController = AnimationController(
+      duration: const Duration(milliseconds: 400),
+      vsync: this
+    );
+
     _loadAccountList();
+    _animationController.forward();
+  }
+
+  @override
+  void dispose() {
+    _animationController.dispose();
+    super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        const SizedBox(height: 30),
-        BigSearchWidget(
-          iconName: 'ic_search.svg',
-          labelText: S.of(context).search,
-          textInputAction: TextInputAction.done,
-          onChanged: (keyword) => _searchAccount(keyword),
-        ),
-        const SizedBox(height: 30),
-        Expanded(
-          child: _buildAccountList(),
-        ),
-      ],
+    return BearAnimateWidget(
+      animation: _animationController,
+      child: Column(
+        children: [
+          const SizedBox(height: 30),
+          BigSearchWidget(
+            iconName: 'ic_search.svg',
+            labelText: S.of(context).search,
+            textInputAction: TextInputAction.done,
+            onChanged: (keyword) => _searchAccount(keyword),
+          ),
+          const SizedBox(height: 30),
+          Expanded(
+            child: _buildAccountList(),
+          ),
+        ],
+      ),
     );
   }
 
