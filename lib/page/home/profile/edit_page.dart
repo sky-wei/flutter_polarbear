@@ -91,7 +91,7 @@ class _EditProfilePage extends State<EditProfilePage> {
                 autofocus: true,
                 textInputAction: TextInputAction.next,
                 validator: (v) {
-                  return v!.trim().isEmpty ? "名称不能为空!" : null;
+                  return v!.trim().isEmpty ? S.of(context).nameNotEmpty : null;
                 },
               ),
               const SizedBox(height: 20),
@@ -102,7 +102,7 @@ class _EditProfilePage extends State<EditProfilePage> {
                 obscureText: true,
                 textInputAction: TextInputAction.next,
                 validator: (v) {
-                  return v!.trim().isEmpty ? "密码不能为空!" : null;
+                  return v!.trim().isEmpty ? S.of(context).passwordNotEmpty : null;
                 },
               ),
               const SizedBox(height: 20),
@@ -113,7 +113,7 @@ class _EditProfilePage extends State<EditProfilePage> {
                 obscureText: true,
                 textInputAction: TextInputAction.next,
                 validator: (v) {
-                  return v!.trim().isEmpty ? "新密码不能为空!" : null;
+                  return v!.trim().isEmpty ? S.of(context).newPasswordNotEmpty : null;
                 },
               ),
               const SizedBox(height: 20),
@@ -122,7 +122,7 @@ class _EditProfilePage extends State<EditProfilePage> {
                 iconName: 'ic_desc.svg',
                 labelText: S.of(context).desc,
                 validator: (v) {
-                  return v!.trim().isEmpty ? "描述不能为空!" : null;
+                  return v!.trim().isEmpty ? S.of(context).descNotEmpty : null;
                 },
                 keyboardType: TextInputType.multiline,
                 maxLines: 2,

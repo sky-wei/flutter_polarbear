@@ -17,6 +17,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_polarbear/data/data_exception.dart';
 
+import '../generated/l10n.dart';
+
 class ErrorUtil {
 
   ErrorUtil._();
@@ -25,19 +27,19 @@ class ErrorUtil {
     if (error is DataException) {
       switch(error.type) {
         case ErrorType.adminExist:
-          return "账号已经存在!";
+          return S.of(context).accountExists;
         case ErrorType.nameOrPasswordError:
-          return "账号或密码错误!";
+          return S.of(context).accountPasswordError;
         case ErrorType.updateError:
-          return "更新信息错误!";
+          return S.of(context).updateInfoError;
         case ErrorType.other:
-          return "处理异常!";
+          return S.of(context).handlerError;
         case ErrorType.deleteError:
-          return "删除信息错误!";
+          return S.of(context).deleteInfoError;
         case ErrorType.passwordError:
-          return "密码错误!";
+          return S.of(context).passwordError;
       }
     }
-    return '处理异常';
+    return S.of(context).handlerError;
   }
 }

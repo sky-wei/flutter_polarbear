@@ -102,7 +102,7 @@ class _NewAccountPageState extends State<NewAccountPage> with SingleTickerProvid
                 autofocus: true,
                 textInputAction: TextInputAction.next,
                 validator: (v) {
-                  return v!.trim().isEmpty ? "名称不能为空!" : null;
+                  return v!.trim().isEmpty ? S.of(context).nameNotEmpty : null;
                 },
               ),
               const SizedBox(height: 20),
@@ -113,7 +113,7 @@ class _NewAccountPageState extends State<NewAccountPage> with SingleTickerProvid
                 obscureText: true,
                 textInputAction: TextInputAction.next,
                 validator: (v) {
-                  return v!.trim().isEmpty ? "密码不能为空!" : null;
+                  return v!.trim().isEmpty ? S.of(context).passwordNotEmpty : null;
                 },
               ),
               const SizedBox(height: 20),
@@ -123,7 +123,7 @@ class _NewAccountPageState extends State<NewAccountPage> with SingleTickerProvid
                 labelText: S.of(context).url,
                 textInputAction: TextInputAction.next,
                 validator: (v) {
-                  return v!.trim().isEmpty ? "URL不能为空!" : null;
+                  return v!.trim().isEmpty ? S.of(context).urlNotEmpty : null;
                 },
               ),
               const SizedBox(height: 20),
@@ -132,7 +132,7 @@ class _NewAccountPageState extends State<NewAccountPage> with SingleTickerProvid
                 iconName: 'ic_desc.svg',
                 labelText: S.of(context).desc,
                 validator: (v) {
-                  return v!.trim().isEmpty ? "描述不能为空!" : null;
+                  return v!.trim().isEmpty ? S.of(context).descNotEmpty : null;
                 },
                 keyboardType: TextInputType.multiline,
                 maxLines: 2,
@@ -168,7 +168,7 @@ class _NewAccountPageState extends State<NewAccountPage> with SingleTickerProvid
       desc: desc
     ).then((value) {
       _clearText();
-      MessageUtil.showMessage(context, '添加账号成功！');
+      MessageUtil.showMessage(context, S.of(context).createAccountSuccess);
     }).onError((error, stackTrace) {
       MessageUtil.showMessage(context, ErrorUtil.getMessage(context, error));
     });

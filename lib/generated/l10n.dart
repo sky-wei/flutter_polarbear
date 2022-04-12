@@ -429,6 +429,216 @@ class S {
       args: [value],
     );
   }
+
+  /// `账号已经存在!`
+  String get accountExists {
+    return Intl.message(
+      '账号已经存在!',
+      name: 'accountExists',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `账号或密码错误!`
+  String get accountPasswordError {
+    return Intl.message(
+      '账号或密码错误!',
+      name: 'accountPasswordError',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `更新信息错误!`
+  String get updateInfoError {
+    return Intl.message(
+      '更新信息错误!',
+      name: 'updateInfoError',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `处理异常!`
+  String get handlerError {
+    return Intl.message(
+      '处理异常!',
+      name: 'handlerError',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `删除信息错误!`
+  String get deleteInfoError {
+    return Intl.message(
+      '删除信息错误!',
+      name: 'deleteInfoError',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `密码错误!`
+  String get passwordError {
+    return Intl.message(
+      '密码错误!',
+      name: 'passwordError',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `已复制当前信息！`
+  String get copyToClipboard {
+    return Intl.message(
+      '已复制当前信息！',
+      name: 'copyToClipboard',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `名称不能为空!`
+  String get nameNotEmpty {
+    return Intl.message(
+      '名称不能为空!',
+      name: 'nameNotEmpty',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `密码不能为空!`
+  String get passwordNotEmpty {
+    return Intl.message(
+      '密码不能为空!',
+      name: 'passwordNotEmpty',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `链接不能为空!`
+  String get urlNotEmpty {
+    return Intl.message(
+      '链接不能为空!',
+      name: 'urlNotEmpty',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `描述不能为空!`
+  String get descNotEmpty {
+    return Intl.message(
+      '描述不能为空!',
+      name: 'descNotEmpty',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `删除账号成功！`
+  String get deleteAccountSuccess {
+    return Intl.message(
+      '删除账号成功！',
+      name: 'deleteAccountSuccess',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `修改账号成功！`
+  String get changeAccountSuccess {
+    return Intl.message(
+      '修改账号成功！',
+      name: 'changeAccountSuccess',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `创建账号成功！`
+  String get createAccountSuccess {
+    return Intl.message(
+      '创建账号成功！',
+      name: 'createAccountSuccess',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `新密码不能为空！`
+  String get newPasswordNotEmpty {
+    return Intl.message(
+      '新密码不能为空！',
+      name: 'newPasswordNotEmpty',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `导入成功！`
+  String get importSuccess {
+    return Intl.message(
+      '导入成功！',
+      name: 'importSuccess',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `导出成功！`
+  String get exportSuccess {
+    return Intl.message(
+      '导出成功！',
+      name: 'exportSuccess',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `导入异常！`
+  String get importError {
+    return Intl.message(
+      '导入异常！',
+      name: 'importError',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `导出异常！`
+  String get exportError {
+    return Intl.message(
+      '导出异常！',
+      name: 'exportError',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `清除数据完成！`
+  String get clearDataComplete {
+    return Intl.message(
+      '清除数据完成！',
+      name: 'clearDataComplete',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `密码输入不一致！`
+  String get passwordInconsistent {
+    return Intl.message(
+      '密码输入不一致！',
+      name: 'passwordInconsistent',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

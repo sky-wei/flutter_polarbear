@@ -52,7 +52,7 @@ class _RegisterPageState extends State<RegisterPage> {
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
-                const BigTitleWidget(title: "Welcome"),
+                BigTitleWidget(title: S.of(context).welcome),
                 const SizedBox(height: 60),
                 BigInputWidget(
                   controller: _nameController,
@@ -61,7 +61,7 @@ class _RegisterPageState extends State<RegisterPage> {
                   autofocus: true,
                   textInputAction: TextInputAction.next,
                   validator: (v) {
-                    return v!.trim().isEmpty ? "名称不能为空!" : null;
+                    return v!.trim().isEmpty ? S.of(context).nameNotEmpty : null;
                   },
                 ),
                 const SizedBox(height: 20),
@@ -73,9 +73,9 @@ class _RegisterPageState extends State<RegisterPage> {
                   textInputAction: TextInputAction.next,
                   validator: (v) {
                     if (v!.trim().isEmpty) {
-                      return "密码不能为空!";
+                      return S.of(context).passwordNotEmpty;
                     } else if (v != _confirmPasswordController.text) {
-                      return "密码输入不一致";
+                      return S.of(context).passwordInconsistent;
                     }
                   },
                 ),
@@ -88,9 +88,9 @@ class _RegisterPageState extends State<RegisterPage> {
                   textInputAction: TextInputAction.next,
                   validator: (v) {
                     if (v!.trim().isEmpty) {
-                      return "密码不能为空!";
+                      return S.of(context).passwordNotEmpty;
                     } else if (v != _confirmPasswordController.text) {
-                      return "密码输入不一致";
+                      return S.of(context).passwordInconsistent;
                     }
                   },
                   onFieldSubmitted: (value) => _register(),

@@ -153,7 +153,7 @@ class _AccountListPageState extends State<AccountListPage> with SingleTickerProv
           setState(() {
             _accountItems.remove(value);
           });
-          MessageUtil.showMessage(context, '删除账号成功！');
+          MessageUtil.showMessage(context, S.of(context).deleteAccountSuccess);
         }).onError((error, stackTrace) {
           MessageUtil.showMessage(context, ErrorUtil.getMessage(context, error));
         });
@@ -169,7 +169,7 @@ class _AccountListPageState extends State<AccountListPage> with SingleTickerProv
               _accountItems.insert(index, value);
             }
           });
-          MessageUtil.showMessage(context, '修改账号成功！');
+          MessageUtil.showMessage(context, S.of(context).changeAccountSuccess);
         }).onError((error, stackTrace) {
           MessageUtil.showMessage(context, ErrorUtil.getMessage(context, error));
         });

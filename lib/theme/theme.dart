@@ -29,6 +29,7 @@ class XTheme {
   );
 
   static ThemeData darkTheme() => ThemeData(
+    brightness: Brightness.dark,
     primarySwatch: XColor.red,
     backgroundColor: XColor.backgroundColor,
     fontFamily: 'hwxw',

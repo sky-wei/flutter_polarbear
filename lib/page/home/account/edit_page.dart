@@ -16,10 +16,8 @@
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_polarbear/data/item/account_item.dart';
-import 'package:provider/provider.dart';
 
 import '../../../generated/l10n.dart';
-import '../../../model/app_model.dart';
 import '../../../widget/big_button_widget.dart';
 import '../../../widget/big_input_widget.dart';
 import '../../../widget/sub_bar_widget.dart';
@@ -93,7 +91,7 @@ class _EditAccountPage extends State<EditAccountPage> {
                 autofocus: true,
                 textInputAction: TextInputAction.next,
                 validator: (v) {
-                  return v!.trim().isEmpty ? "名称不能为空!" : null;
+                  return v!.trim().isEmpty ? S.of(context).nameNotEmpty : null;
                 },
               ),
               const SizedBox(height: 20),
@@ -104,7 +102,7 @@ class _EditAccountPage extends State<EditAccountPage> {
                 obscureText: true,
                 textInputAction: TextInputAction.next,
                 validator: (v) {
-                  return v!.trim().isEmpty ? "密码不能为空!" : null;
+                  return v!.trim().isEmpty ? S.of(context).passwordNotEmpty : null;
                 },
               ),
               const SizedBox(height: 20),
@@ -114,7 +112,7 @@ class _EditAccountPage extends State<EditAccountPage> {
                 labelText: S.of(context).url,
                 textInputAction: TextInputAction.next,
                 validator: (v) {
-                  return v!.trim().isEmpty ? "URL不能为空!" : null;
+                  return v!.trim().isEmpty ? S.of(context).urlNotEmpty : null;
                 },
               ),
               const SizedBox(height: 20),
@@ -123,7 +121,7 @@ class _EditAccountPage extends State<EditAccountPage> {
                 iconName: 'ic_desc.svg',
                 labelText: S.of(context).desc,
                 validator: (v) {
-                  return v!.trim().isEmpty ? "描述不能为空!" : null;
+                  return v!.trim().isEmpty ? S.of(context).descNotEmpty : null;
                 },
                 keyboardType: TextInputType.multiline,
                 maxLines: 2,

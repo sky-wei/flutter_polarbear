@@ -20,52 +20,74 @@ typedef String MessageIfAbsent(String messageStr, List<dynamic> args);
 class MessageLookup extends MessageLookupByLibrary {
   String get localeName => 'zh_CN';
 
-  static String m0(value) => "Description: ${value}";
+  static String m0(value) => "描述: ${value}";
 
-  static String m1(value) => "Url: ${value}";
+  static String m1(value) => "网站: ${value}";
 
-  static String m2(value) => "Version: ${value}";
+  static String m2(value) => "版本: ${value}";
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
-        "about": MessageLookupByLibrary.simpleMessage("About"),
-        "account": MessageLookupByLibrary.simpleMessage("Account"),
-        "accountManage": MessageLookupByLibrary.simpleMessage("Account Manage"),
-        "admin": MessageLookupByLibrary.simpleMessage("Admin"),
+        "about": MessageLookupByLibrary.simpleMessage("关于"),
+        "account": MessageLookupByLibrary.simpleMessage("帐号"),
+        "accountExists": MessageLookupByLibrary.simpleMessage("账号已经存在!"),
+        "accountManage": MessageLookupByLibrary.simpleMessage("帐号管理"),
+        "accountPasswordError":
+            MessageLookupByLibrary.simpleMessage("账号或密码错误!"),
+        "admin": MessageLookupByLibrary.simpleMessage("管理员"),
         "appName": MessageLookupByLibrary.simpleMessage("PolarBear"),
-        "appNew": MessageLookupByLibrary.simpleMessage("New"),
-        "cancel": MessageLookupByLibrary.simpleMessage("Cancel"),
-        "change": MessageLookupByLibrary.simpleMessage("Change"),
-        "clearData": MessageLookupByLibrary.simpleMessage("Clear Data"),
-        "confirmPassword":
-            MessageLookupByLibrary.simpleMessage("ConfirmPassword"),
-        "create": MessageLookupByLibrary.simpleMessage("Create"),
-        "delete": MessageLookupByLibrary.simpleMessage("Delete"),
-        "desc": MessageLookupByLibrary.simpleMessage("Description"),
+        "appNew": MessageLookupByLibrary.simpleMessage("创建"),
+        "cancel": MessageLookupByLibrary.simpleMessage("取消"),
+        "change": MessageLookupByLibrary.simpleMessage("修改"),
+        "changeAccountSuccess": MessageLookupByLibrary.simpleMessage("修改账号成功！"),
+        "clearData": MessageLookupByLibrary.simpleMessage("清除数据"),
+        "clearDataComplete": MessageLookupByLibrary.simpleMessage("清除数据完成！"),
+        "confirmPassword": MessageLookupByLibrary.simpleMessage("确认密码"),
+        "copyToClipboard": MessageLookupByLibrary.simpleMessage("已复制当前信息！"),
+        "create": MessageLookupByLibrary.simpleMessage("创建"),
+        "createAccountSuccess": MessageLookupByLibrary.simpleMessage("创建账号成功！"),
+        "delete": MessageLookupByLibrary.simpleMessage("删除"),
+        "deleteAccountSuccess": MessageLookupByLibrary.simpleMessage("删除账号成功！"),
+        "deleteInfoError": MessageLookupByLibrary.simpleMessage("删除信息错误!"),
+        "desc": MessageLookupByLibrary.simpleMessage("描述"),
+        "descNotEmpty": MessageLookupByLibrary.simpleMessage("描述不能为空!"),
         "descX": m0,
-        "edit": MessageLookupByLibrary.simpleMessage("Edit"),
-        "export": MessageLookupByLibrary.simpleMessage("Export"),
-        "home": MessageLookupByLibrary.simpleMessage("Home"),
-        "import": MessageLookupByLibrary.simpleMessage("Import"),
-        "loading": MessageLookupByLibrary.simpleMessage("Loading..."),
-        "login": MessageLookupByLibrary.simpleMessage("Login"),
-        "mail": MessageLookupByLibrary.simpleMessage("Mail"),
-        "name": MessageLookupByLibrary.simpleMessage("Name"),
-        "newAccount": MessageLookupByLibrary.simpleMessage("New Account"),
-        "newPassword": MessageLookupByLibrary.simpleMessage("NewPassword"),
-        "ok": MessageLookupByLibrary.simpleMessage("OK"),
-        "other": MessageLookupByLibrary.simpleMessage("Other"),
-        "password": MessageLookupByLibrary.simpleMessage("Password"),
-        "profile": MessageLookupByLibrary.simpleMessage("Profile"),
-        "register": MessageLookupByLibrary.simpleMessage("Register"),
-        "search": MessageLookupByLibrary.simpleMessage("Search"),
-        "settings": MessageLookupByLibrary.simpleMessage("Settings"),
-        "source": MessageLookupByLibrary.simpleMessage("Source"),
-        "storage": MessageLookupByLibrary.simpleMessage("Storage"),
-        "url": MessageLookupByLibrary.simpleMessage("Url"),
+        "edit": MessageLookupByLibrary.simpleMessage("编辑"),
+        "export": MessageLookupByLibrary.simpleMessage("导出"),
+        "exportError": MessageLookupByLibrary.simpleMessage("导出异常！"),
+        "exportSuccess": MessageLookupByLibrary.simpleMessage("导出成功！"),
+        "handlerError": MessageLookupByLibrary.simpleMessage("处理异常!"),
+        "home": MessageLookupByLibrary.simpleMessage("主页"),
+        "import": MessageLookupByLibrary.simpleMessage("导入"),
+        "importError": MessageLookupByLibrary.simpleMessage("导入异常！"),
+        "importSuccess": MessageLookupByLibrary.simpleMessage("导入成功！"),
+        "loading": MessageLookupByLibrary.simpleMessage("加载中..."),
+        "login": MessageLookupByLibrary.simpleMessage("登入"),
+        "mail": MessageLookupByLibrary.simpleMessage("邮箱"),
+        "name": MessageLookupByLibrary.simpleMessage("名称"),
+        "nameNotEmpty": MessageLookupByLibrary.simpleMessage("名称不能为空!"),
+        "newAccount": MessageLookupByLibrary.simpleMessage("添加帐号"),
+        "newPassword": MessageLookupByLibrary.simpleMessage("新密码"),
+        "newPasswordNotEmpty": MessageLookupByLibrary.simpleMessage("新密码不能为空！"),
+        "ok": MessageLookupByLibrary.simpleMessage("确定"),
+        "other": MessageLookupByLibrary.simpleMessage("其他"),
+        "password": MessageLookupByLibrary.simpleMessage("密码"),
+        "passwordError": MessageLookupByLibrary.simpleMessage("密码错误!"),
+        "passwordInconsistent":
+            MessageLookupByLibrary.simpleMessage("密码输入不一致！"),
+        "passwordNotEmpty": MessageLookupByLibrary.simpleMessage("密码不能为空!"),
+        "profile": MessageLookupByLibrary.simpleMessage("信息"),
+        "register": MessageLookupByLibrary.simpleMessage("注册"),
+        "search": MessageLookupByLibrary.simpleMessage("搜索"),
+        "settings": MessageLookupByLibrary.simpleMessage("设置"),
+        "source": MessageLookupByLibrary.simpleMessage("源代码"),
+        "storage": MessageLookupByLibrary.simpleMessage("存储"),
+        "updateInfoError": MessageLookupByLibrary.simpleMessage("更新信息错误!"),
+        "url": MessageLookupByLibrary.simpleMessage("网站"),
+        "urlNotEmpty": MessageLookupByLibrary.simpleMessage("链接不能为空!"),
         "urlX": m1,
-        "version": MessageLookupByLibrary.simpleMessage("Version"),
+        "version": MessageLookupByLibrary.simpleMessage("版本"),
         "versionX": m2,
-        "welcome": MessageLookupByLibrary.simpleMessage("Welcome")
+        "welcome": MessageLookupByLibrary.simpleMessage("欢迎")
       };
 }

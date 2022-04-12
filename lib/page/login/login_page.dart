@@ -59,7 +59,7 @@ class _LoginPageState extends State<LoginPage> {
                 autofocus: true,
                 textInputAction: TextInputAction.next,
                 validator: (v) {
-                  return v!.trim().isEmpty ? "名称不能为空!" : null;
+                  return v!.trim().isEmpty ? S.of(context).nameNotEmpty : null;
                 },
               ),
               const SizedBox(height: 20),
@@ -70,7 +70,7 @@ class _LoginPageState extends State<LoginPage> {
                 obscureText: true,
                 textInputAction: TextInputAction.next,
                 validator: (v) {
-                  return v!.trim().isEmpty ? "密码不能为空!" : null;
+                  return v!.trim().isEmpty ? S.of(context).passwordNotEmpty : null;
                 },
                 onFieldSubmitted: (value) => _login(),
               ),

@@ -133,7 +133,7 @@ class _AccountPageState extends State<AccountPage> {
     Clipboard.setData(
       ClipboardData(text:value)
     ).then((value) {
-      MessageUtil.showMessage(context, '已复制当前信息！');
+      MessageUtil.showMessage(context, S.of(context).copyToClipboard);
     });
   }
 }

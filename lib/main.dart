@@ -16,7 +16,6 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
-import 'package:flutter_polarbear/data/account_manager.dart';
 import 'package:flutter_polarbear/model/app_model.dart';
 import 'package:flutter_polarbear/page/home/home_page.dart';
 import 'package:flutter_polarbear/page/login/login_page.dart';
@@ -46,6 +45,7 @@ class MyApp extends StatelessWidget {
       child: MaterialApp(
         title: 'PolarBear',
         theme: XTheme.lightTheme(),
+        darkTheme: XTheme.darkTheme(),
         debugShowCheckedModeBanner: false,
         routes: {
           XRoute.splash: (BuildContext context) => const SplashPage(),

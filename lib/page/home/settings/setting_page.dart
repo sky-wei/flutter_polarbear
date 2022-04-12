@@ -120,9 +120,9 @@ class _SettingPageState extends State<SettingPage> with SingleTickerProviderStat
   void _importFile() {
     _appModel.importAccount(
     ).then((value) {
-      if (value) MessageUtil.showMessage(context, '导入成功！');
+      if (value) MessageUtil.showMessage(context, S.of(context).importSuccess);
     }).onError((error, stackTrace) {
-      MessageUtil.showMessage(context, '导入异常！');
+      MessageUtil.showMessage(context, S.of(context).importError);
     });
   }
 
@@ -130,9 +130,9 @@ class _SettingPageState extends State<SettingPage> with SingleTickerProviderStat
   void _exportFile() {
     _appModel.exportAccount(
     ).then((value) {
-      if (value) MessageUtil.showMessage(context, '导出成功！');
+      if (value) MessageUtil.showMessage(context, S.of(context).exportSuccess);
     }).onError((error, stackTrace) {
-      MessageUtil.showMessage(context, '导入异常！');
+      MessageUtil.showMessage(context, S.of(context).exportError);
     });
   }
 
@@ -140,7 +140,7 @@ class _SettingPageState extends State<SettingPage> with SingleTickerProviderStat
   void _clearData() {
     _appModel.clearData(
     ).then((value) {
-      MessageUtil.showMessage(context, '清除数据完成！');
+      MessageUtil.showMessage(context, S.of(context).clearDataComplete);
     }).onError((error, stackTrace) {
       MessageUtil.showMessage(context, ErrorUtil.getMessage(context, error));
     });
