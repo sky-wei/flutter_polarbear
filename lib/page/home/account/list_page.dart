@@ -17,6 +17,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_polarbear/data/item/account_item.dart';
 import 'package:flutter_polarbear/model/app_model.dart';
+import 'package:flutter_polarbear/page/bear_page_route.dart';
 import 'package:flutter_polarbear/page/home/account/account_page.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:provider/provider.dart';
@@ -114,7 +115,7 @@ class _AccountListPageState extends State<AccountListPage> {
 
   void _handlerAccount(AccountItem item) {
     Navigator.of(context).push(
-      MaterialPageRoute(
+      BearPageRoute(
         builder: (context) {
           return AccountPage(account: _appModel.decryptAccount(item));
         }

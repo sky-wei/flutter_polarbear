@@ -16,6 +16,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_polarbear/data/item/account_item.dart';
+import 'package:flutter_polarbear/page/bear_page_route.dart';
 import 'package:flutter_polarbear/page/home/account/edit_page.dart';
 import 'package:flutter_polarbear/page/home/account/list_page.dart';
 import 'package:flutter_polarbear/theme/color.dart';
@@ -113,13 +114,13 @@ class _AccountPageState extends State<AccountPage> {
   /// 编辑账号
   void _editAccount() {
     Navigator.of(context).push(
-      MaterialPageRoute(
+      BearPageRoute(
         builder: (context) {
           return EditAccountPage(account: widget.account);
         }
       )
     ).then((value) {
-      Navigator.pop(context, value);
+      if (value != null) Navigator.pop(context, value);
     });
   }
 }

@@ -17,6 +17,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_polarbear/data/item/admin_item.dart';
 import 'package:flutter_polarbear/model/app_model.dart';
+import 'package:flutter_polarbear/page/bear_page_route.dart';
 import 'package:flutter_polarbear/widget/menu_text_widget.dart';
 import 'package:provider/provider.dart';
 
@@ -105,7 +106,7 @@ class _ProfilePageState extends State<ProfilePage> {
   /// 编辑信息
   void _editAdmin() {
     Navigator.of(context).push(
-      MaterialPageRoute(
+      BearPageRoute(
         builder: (context) {
           return EditProfilePage(admin: _admin);
         }

@@ -16,6 +16,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_polarbear/model/app_model.dart';
+import 'package:flutter_polarbear/page/bear_page_route.dart';
 import 'package:flutter_polarbear/page/home/settings/about_page.dart';
 import 'package:flutter_polarbear/widget/menu_more_widget.dart';
 import 'package:flutter_polarbear/widget/sort_title_widget.dart';
@@ -90,15 +91,7 @@ class _SettingPageState extends State<SettingPage> {
         SortTitleWidget(title: S.of(context).other),
         const SizedBox(height: 15),
         MenuMoreWidget(
-          onPressed: () {
-            Navigator.of(context).push(
-              MaterialPageRoute(
-                builder: (context) {
-                  return const AboutPage();
-                }
-              )
-            );
-          },
+          onPressed: () => _aboutPage(),
           text: S.of(context).about,
           icon: 'ic_arrow_right.svg'
         ),
@@ -134,6 +127,13 @@ class _SettingPageState extends State<SettingPage> {
     }).onError((error, stackTrace) {
       MessageUtil.showMessage(context, ErrorUtil.getMessage(context, error));
     });
+  }
+
+  /// 关闭界面
+  void _aboutPage() {
+    Navigator.of(context).push(
+      BearPageRoute(builder: (context) => const AboutPage())
+    );
   }
 }
 

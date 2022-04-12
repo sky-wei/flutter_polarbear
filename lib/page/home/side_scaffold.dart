@@ -193,6 +193,7 @@ class _SideScaffoldState extends State<SideScaffold> {
   void _sideOnTap(SideItem item) {
     var idx = widget.sideItems.indexOf(item);
     if (idx != widget.currentIndex) {
+      // widget.tabController.animateTo(idx, curve: Curves.easeOutSine);
       widget.onNavigationIndexChange!(idx);
     }
   }
