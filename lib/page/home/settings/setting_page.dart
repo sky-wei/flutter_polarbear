@@ -68,17 +68,13 @@ class _SettingPageState extends State<SettingPage> {
         SortTitleWidget(title: S.of(context).account),
         const SizedBox(height: 15),
         MenuMoreWidget(
-          onPressed: () {
-
-          },
+          onPressed: () => _importFile(),
           text: S.of(context).import,
           icon: 'ic_arrow_right.svg'
         ),
         const SizedBox(height: 15),
         MenuMoreWidget(
-          onPressed: () {
-
-          },
+          onPressed: () => _exportFile(),
           text: S.of(context).export,
           icon: 'ic_arrow_right.svg'
         ),
@@ -108,6 +104,26 @@ class _SettingPageState extends State<SettingPage> {
         ),
       ],
     );
+  }
+
+  /// 导入文件
+  void _importFile() {
+    _appModel.importAccount(
+    ).then((value) {
+      if (value) MessageUtil.showMessage(context, '导入成功！');
+    }).onError((error, stackTrace) {
+      MessageUtil.showMessage(context, '导入异常！');
+    });
+  }
+
+  /// 导出文件
+  void _exportFile() {
+    _appModel.exportAccount(
+    ).then((value) {
+      if (value) MessageUtil.showMessage(context, '导出成功！');
+    }).onError((error, stackTrace) {
+      MessageUtil.showMessage(context, '导入异常！');
+    });
   }
 
   /// 清除数据

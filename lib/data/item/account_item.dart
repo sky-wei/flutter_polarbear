@@ -56,6 +56,26 @@ class AccountItem {
     );
   }
 
+  factory AccountItem.fromJson(Map<String, dynamic> json) => AccountItem(
+    id: json['id'],
+    adminId: json['adminId'],
+    name: json['name'],
+    password: json['password'],
+    url: json['url'],
+    desc: json['desc'],
+    createTime: json['createTime']
+  );
+
+  Map<String, dynamic> toJson() => {
+    'id': id,
+    'adminId': adminId,
+    'name': name,
+    'password': password,
+    'url': url,
+    'desc': desc,
+    'createTime': createTime
+  };
+
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
@@ -66,4 +86,9 @@ class AccountItem {
 
   @override
   int get hashCode => id.hashCode ^ adminId.hashCode;
+
+  @override
+  String toString() {
+    return 'AccountItem{id: $id, adminId: $adminId, name: $name, password: $password, url: $url, desc: $desc, createTime: $createTime}';
+  }
 }

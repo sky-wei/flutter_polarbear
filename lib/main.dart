@@ -41,7 +41,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
-        ChangeNotifierProvider(create: (context) => AppModel(context: context)),
+        ChangeNotifierProvider(create: (context) => AppModel()),
       ],
       child: MaterialApp(
         title: 'PolarBear',

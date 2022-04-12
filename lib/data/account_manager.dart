@@ -108,6 +108,11 @@ class AccountManager {
     return item.copy(id: id);
   }
 
+  /// 创建账号
+  Future<List<int>> createAccountList(List<AccountItem> items) async {
+    return accountBox.putMany(AccountMapper.transformItems(items));
+  }
+
   /// 更新账号信息
   Future<AccountItem> updateAccount(AccountItem item) async {
 

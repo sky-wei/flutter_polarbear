@@ -37,7 +37,7 @@ class AccountMapper {
     );
   }
 
-  static Iterable<AccountEntity> transformItems(List<AccountItem> entities) {
+  static List<AccountEntity> transformItems(List<AccountItem> entities) {
     return entities.map((e) => transformItem(e)).toList();
   }
 

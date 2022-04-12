@@ -62,5 +62,10 @@ class AdminItem {
 
   @override
   int get hashCode => id.hashCode;
+
+  @override
+  String toString() {
+    return 'AdminItem{id: $id, name: $name, password: $password, desc: $desc, createTime: $createTime}';
+  }
 }
 

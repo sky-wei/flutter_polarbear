@@ -32,8 +32,12 @@ class ObjectBox {
     accountBox = Box<AccountEntity>(store);
   }
 
-  static Future<ObjectBox> create() async {
-    final store = await openStore();
+  static Future<ObjectBox> create({
+    String? directory
+  }) async {
+    final store = await openStore(
+      directory: directory
+    );
     return ObjectBox._create(store);
   }
 }
